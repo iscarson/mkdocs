@@ -1,0 +1,2916 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Docs">
+      
+      
+      
+        <meta name="author" content="Carson">
+      
+      
+        <link rel="canonical" href="https://docs.carsonfan.com/DevOps/02%20Redis/codis3.1-cluster-building-including-zookeeper-cluster/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
+    
+    
+      
+        <title>Codis3.1 集群搭建（包含zookeeper集群） - Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f7f47774.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Docs" class="md-header__button md-logo" aria-label="Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Codis3.1 集群搭建（包含zookeeper集群）
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/iscarson" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Github Star
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Docs" class="md-nav__button md-logo" aria-label="Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Docs
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/iscarson" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Github Star
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        DevOps
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="DevOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1" type="checkbox" id="__nav_1_1" >
+      
+      <label class="md-nav__link" for="__nav_1_1">
+        01 Nginx
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="01 Nginx" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          01 Nginx
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Nginx/Openresty%20adds%20WAF%20configuration/" class="md-nav__link">
+        Openresty增加waf配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" checked>
+      
+      <label class="md-nav__link" for="__nav_1_2">
+        02 Redis
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="02 Redis" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          02 Redis
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Codis3.1 集群搭建（包含zookeeper集群）
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Codis3.1 集群搭建（包含zookeeper集群）
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一.基本信息
+  </a>
+  
+    <nav class="md-nav" aria-label="一.基本信息">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 服务器基本信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 环境信息
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 环境信息">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-codis31" class="md-nav__link">
+    2.1 codis版本：3.1 版本
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-gogo152linux-amd64targz" class="md-nav__link">
+    2.2 Go使用版本：go1.5.2.Linux-amd64.tar.gz
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-jdkjdk180_11" class="md-nav__link">
+    2.3 jdk版本：jdk1.8.0_11
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-zookeeperzookeeper-348targz" class="md-nav__link">
+    2.4 zookeeper版本：zookeeper-3.4.8.tar.gz
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codis" class="md-nav__link">
+    二.部署codis
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    1. 相关组件安装配置
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 相关组件安装配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    1.1  安装所需依赖包
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    1.2 修改内核
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2go" class="md-nav__link">
+    2.安装go(三台主机上执行）
+  </a>
+  
+    <nav class="md-nav" aria-label="2.安装go(三台主机上执行）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-go" class="md-nav__link">
+    2.1 下载go
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2 解包
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-gopath" class="md-nav__link">
+    2.3 新建gopath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-go" class="md-nav__link">
+    2.4 配置go环境变量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-godep" class="md-nav__link">
+    2.5 godep安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3jdk" class="md-nav__link">
+    3.安装jdk(三台主机上执行）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4zookeeper" class="md-nav__link">
+    4.安装zookeeper(三台主机上执行）
+  </a>
+  
+    <nav class="md-nav" aria-label="4.安装zookeeper(三台主机上执行）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-zookeeper" class="md-nav__link">
+    4.1 安装zookeeper
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    4.2 生成配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-zookeeper" class="md-nav__link">
+    4.3 修改zookeeper配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    4.4 创建所需文件夹
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-myid" class="md-nav__link">
+    4.5 生成myid
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-zookeeper" class="md-nav__link">
+    4.6 启动zookeeper
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-zookeeper" class="md-nav__link">
+    4.7 关闭zookeeper
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48-zk" class="md-nav__link">
+    4.8 查看zk状态
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#49" class="md-nav__link">
+    4.9 查看相关信息：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5codis" class="md-nav__link">
+    5.安装codis(三台主机上执行）
+  </a>
+  
+    <nav class="md-nav" aria-label="5.安装codis(三台主机上执行）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-codis" class="md-nav__link">
+    5.1 下载codis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-codis" class="md-nav__link">
+    5.2 编译codis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-bin" class="md-nav__link">
+    5.3 查看bin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-codis" class="md-nav__link">
+    5.4 创建codis所需目录
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-codisbin" class="md-nav__link">
+    5.5 拷贝codis的bin目录
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56" class="md-nav__link">
+    5.6 配置和启动各组件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-redis" class="md-nav__link">
+    5.7 启动redis
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codis_1" class="md-nav__link">
+    三.  配置codis
+  </a>
+  
+    <nav class="md-nav" aria-label="三.  配置codis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-codis-dashboard" class="md-nav__link">
+    1. Codis Dashboard
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Codis Dashboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-codis-dashboard" class="md-nav__link">
+    1.1 配置Codis Dashboard
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-codis-dashboard" class="md-nav__link">
+    1.2 启动Codis Dashboard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-codis-proxy" class="md-nav__link">
+    2. Codis Proxy
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Codis Proxy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-proxy" class="md-nav__link">
+    2.1 配置proxy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-proxy" class="md-nav__link">
+    2.2 启动proxy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-codis-fe" class="md-nav__link">
+    3.  Codis FE
+  </a>
+  
+    <nav class="md-nav" aria-label="3.  Codis FE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 集群管理界面
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-codis-fe" class="md-nav__link">
+    3.2 配置codis-fe
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-codis-fe" class="md-nav__link">
+    3.3 启动codis-fe
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      <label class="md-nav__link" for="__nav_1_3">
+        03 Elk
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="03 Elk" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          03 Elk
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Elk/elasticsearch-install-ik-chinese-word-breaker/" class="md-nav__link">
+        ElasticSearch安装IK中文分词器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Elk/elk-cluster-building-elasticsearch-logstash-kinaba/" class="md-nav__link">
+        ELK集群搭建（ElasticSearch Logstash Kinaba）
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      <label class="md-nav__link" for="__nav_1_4">
+        04 Data
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="04 Data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          04 Data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/kafka-cluster-construction/" class="md-nav__link">
+        kafka集群搭建
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/big-data-platform-building-hadoop%2Bspark/" class="md-nav__link">
+        大数据平台搭建（Hadoop+Spark）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/datax-synchronization-data-configuration/" class="md-nav__link">
+        DataX同步数据配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/kafka-cluster-construction/" class="md-nav__link">
+        05 Ldap
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      <label class="md-nav__link" for="__nav_1_6">
+        06 Monitor
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="06 Monitor" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          06 Monitor
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20Monitor/open-falcon-v0.2-deployment-millet-open-source-monitoring-deployment/" class="md-nav__link">
+        open-falcon v0.2 部署、小米开源监控部署
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20Monitor/zabbix-email-alert-script/" class="md-nav__link">
+        zabbix邮件报警脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      <label class="md-nav__link" for="__nav_1_7">
+        07 MySQL
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="07 MySQL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          07 MySQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07%20MySQL/mysql-multi-implementation-of-double-instances-of-mysql/" class="md-nav__link">
+        Mysql multi实现mysql双实例
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      <label class="md-nav__link" for="__nav_1_8">
+        08 Cache
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="08 Cache" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          08 Cache
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08%20Cache/initialize-cache/" class="md-nav__link">
+        初始化Cache
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08%20Cache/deploy-memcache-and-adopt-supervisor-management/" class="md-nav__link">
+        部署Memcache，采用Supervisord管理
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_9" type="checkbox" id="__nav_1_9" >
+      
+      <label class="md-nav__link" for="__nav_1_9">
+        09 Php
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="09 Php" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          09 Php
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09%20Php/php-install-bcmath-extension/" class="md-nav__link">
+        php安装bcmath扩展脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_10" type="checkbox" id="__nav_1_10" >
+      
+      <label class="md-nav__link" for="__nav_1_10">
+        10 Web
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="10 Web" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_10">
+          <span class="md-nav__icon md-icon"></span>
+          10 Web
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10%20Web/html-basics/" class="md-nav__link">
+        HTML基础
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_11" type="checkbox" id="__nav_1_11" >
+      
+      <label class="md-nav__link" for="__nav_1_11">
+        11 Network
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="11 Network" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_11">
+          <span class="md-nav__icon md-icon"></span>
+          11 Network
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11%20Network/01%20working%20principle%20of%20switch/" class="md-nav__link">
+        01 交换机的工作原理
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_12" type="checkbox" id="__nav_1_12" >
+      
+      <label class="md-nav__link" for="__nav_1_12">
+        12 Python
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="12 Python" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_12">
+          <span class="md-nav__icon md-icon"></span>
+          12 Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/01%20Initial%20understanding%20of%20Python%20and%20basic%20data%20types/" class="md-nav__link">
+        01 初识Python、基本数据类型
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/02%20Python%20operators/" class="md-nav__link">
+        02 Python运算符
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/03%20conditional%20statement%20and%20circular%20statement/" class="md-nav__link">
+        03 条件语句与循环语句
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/04%20basic%20data%20type%20string%20%28STR%29/" class="md-nav__link">
+        04 基本数据类型-字符串（str）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/05%20basic%20data%20type%20-%20int%2C%20bool/" class="md-nav__link">
+        05 基本数据类型-整型（int）、布尔值（bool）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/06%20basic%20data%20type%20list/" class="md-nav__link">
+        06 基本数据类型-列表（list）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/07%20basic%20data%20type%20-%20tuple%2C%20Dict/" class="md-nav__link">
+        07 基本数据类型-元祖（tuple）、字典（dict）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/08%20basic%20data%20type%20-%20set/" class="md-nav__link">
+        08 基本数据类型-集合（set）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/09%20Python%20functions/" class="md-nav__link">
+        09 Python函数
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/10%20Object%20oriented%20programming%20in%20Python/" class="md-nav__link">
+        10 Python面向对象的程序设计
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/11%20Python%20module%20and%20package%20import/" class="md-nav__link">
+        11 Python模块与包的导入
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/12%20character%20encoding%20in%20Python/" class="md-nav__link">
+        12 Python的字符编码
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/13%20pymysql%20module/" class="md-nav__link">
+        13 pymysql模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/14%20Django%20basic%20command/" class="md-nav__link">
+        14 Django基本命令
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_13" type="checkbox" id="__nav_1_13" >
+      
+      <label class="md-nav__link" for="__nav_1_13">
+        13 Jenkins
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="13 Jenkins" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_13">
+          <span class="md-nav__icon md-icon"></span>
+          13 Jenkins
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../13%20Jenkins/Pipeline%20configuration/" class="md-nav__link">
+        Pipeline配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_14" type="checkbox" id="__nav_1_14" >
+      
+      <label class="md-nav__link" for="__nav_1_14">
+        14 Vsftpd
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="14 Vsftpd" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_14">
+          <span class="md-nav__icon md-icon"></span>
+          14 Vsftpd
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../14%20Vsftpd/vsftpd%20configuration%20parameters/" class="md-nav__link">
+        Vsftpd配置参数
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_15" type="checkbox" id="__nav_1_15" >
+      
+      <label class="md-nav__link" for="__nav_1_15">
+        15 Kubernetes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="15 Kubernetes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_15">
+          <span class="md-nav__icon md-icon"></span>
+          15 Kubernetes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/01%20Kubernetes%20knowledge/" class="md-nav__link">
+        01 Kubernetes知识
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/02%20Kubernetes%20component%20description/" class="md-nav__link">
+        02 组件说明
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/03%20Kubernetes%20resource%20list/" class="md-nav__link">
+        03 资源清单
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/04%20Kubernetes%20cluster%20installation/" class="md-nav__link">
+        04 集群安装
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/05%20Kubernetes%20change%20to%20ipvs%20proxy/" class="md-nav__link">
+        05 修改ipvs代理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/06%20Kubernetes%20resource%20controller/" class="md-nav__link">
+        06 资源控制器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/07%20Kubernetes%20resource%20scheduler/" class="md-nav__link">
+        07 资源调度器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/08%20Kubernetes%20safety/" class="md-nav__link">
+        08 安全
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/09%20Kubernetes%20storage/" class="md-nav__link">
+        09 存储
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/10%20Kubernetes%20service%20discovery/" class="md-nav__link">
+        10 服务发现
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/11%20Kubernetes%20pod%20properties/" class="md-nav__link">
+        11 Pod属性
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/12%20Kubernetes%20high%20availability/" class="md-nav__link">
+        12 高可用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/13%20Kubernetes%20helm/" class="md-nav__link">
+        13 Helm
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/14%20Kubernetes%20harbor/" class="md-nav__link">
+        14 Harbor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/15%20Kubernetes%20kube%20problem%20set/" class="md-nav__link">
+        15 Kube问题集
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/16%20Kubernetes%20other/" class="md-nav__link">
+        16 其他
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_16" type="checkbox" id="__nav_1_16" >
+      
+      <label class="md-nav__link" for="__nav_1_16">
+        16 Gitlab
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="16 Gitlab" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_16">
+          <span class="md-nav__icon md-icon"></span>
+          16 Gitlab
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../16%20Gitlab/Git%20use/" class="md-nav__link">
+        Gitlab使用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../16%20Gitlab/Gitlab%20backup%20script/" class="md-nav__link">
+        Gitlab备份脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_17" type="checkbox" id="__nav_1_17" >
+      
+      <label class="md-nav__link" for="__nav_1_17">
+        17 Golang
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="17 Golang" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_17">
+          <span class="md-nav__icon md-icon"></span>
+          17 Golang
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/01%20fmt.Printf%20use/" class="md-nav__link">
+        01 fmt.Printf使用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/02%20pack/" class="md-nav__link">
+        02 打包
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/03%20Gorang%20function/" class="md-nav__link">
+        03 函数
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_18" type="checkbox" id="__nav_1_18" >
+      
+      <label class="md-nav__link" for="__nav_1_18">
+        99 Other
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="99 Other" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_18">
+          <span class="md-nav__icon md-icon"></span>
+          99 Other
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../99%20Other/Invalid%20Linux%20Ctrl%20C/" class="md-nav__link">
+        Linux Ctrl C无效
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Japanese
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Japanese" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Japanese
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/01%20Fundamentals%20of%20pronunciation/" class="md-nav__link">
+        01 发音基础
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/02%20Let%27s%20go%20and%20buy%20some%20cakes/" class="md-nav__link">
+        02 我们去买蛋糕吧
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/03%20like%20like%20like/" class="md-nav__link">
+        03 喜欢喜欢好喜欢
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/04%20buy%20buy%20buy/" class="md-nav__link">
+        04 买买买
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/05%20family/" class="md-nav__link">
+        05 家人
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/06%20what%20time%20is%20the%20Shinkansen/" class="md-nav__link">
+        06 几点的新干线
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/07%20want%20to%20want%20good%20want/" class="md-nav__link">
+        07 想要想要好想要
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/08%20want%20to%20eat/" class="md-nav__link">
+        08 想吃想吃好想吃
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/09%20my%20dream/" class="md-nav__link">
+        09 我的梦想
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/10%20It%27s%2010%20days%2C%20five%20nights%20and%20nine%20nights/" class="md-nav__link">
+        10 朝五晚九开始啦
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/11%20my/" class="md-nav__link">
+        11 我
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一.基本信息
+  </a>
+  
+    <nav class="md-nav" aria-label="一.基本信息">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 服务器基本信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 环境信息
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 环境信息">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-codis31" class="md-nav__link">
+    2.1 codis版本：3.1 版本
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-gogo152linux-amd64targz" class="md-nav__link">
+    2.2 Go使用版本：go1.5.2.Linux-amd64.tar.gz
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-jdkjdk180_11" class="md-nav__link">
+    2.3 jdk版本：jdk1.8.0_11
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-zookeeperzookeeper-348targz" class="md-nav__link">
+    2.4 zookeeper版本：zookeeper-3.4.8.tar.gz
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codis" class="md-nav__link">
+    二.部署codis
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    1. 相关组件安装配置
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 相关组件安装配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    1.1  安装所需依赖包
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    1.2 修改内核
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2go" class="md-nav__link">
+    2.安装go(三台主机上执行）
+  </a>
+  
+    <nav class="md-nav" aria-label="2.安装go(三台主机上执行）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-go" class="md-nav__link">
+    2.1 下载go
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2 解包
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-gopath" class="md-nav__link">
+    2.3 新建gopath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-go" class="md-nav__link">
+    2.4 配置go环境变量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-godep" class="md-nav__link">
+    2.5 godep安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3jdk" class="md-nav__link">
+    3.安装jdk(三台主机上执行）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4zookeeper" class="md-nav__link">
+    4.安装zookeeper(三台主机上执行）
+  </a>
+  
+    <nav class="md-nav" aria-label="4.安装zookeeper(三台主机上执行）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-zookeeper" class="md-nav__link">
+    4.1 安装zookeeper
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    4.2 生成配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-zookeeper" class="md-nav__link">
+    4.3 修改zookeeper配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    4.4 创建所需文件夹
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-myid" class="md-nav__link">
+    4.5 生成myid
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-zookeeper" class="md-nav__link">
+    4.6 启动zookeeper
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-zookeeper" class="md-nav__link">
+    4.7 关闭zookeeper
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48-zk" class="md-nav__link">
+    4.8 查看zk状态
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#49" class="md-nav__link">
+    4.9 查看相关信息：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5codis" class="md-nav__link">
+    5.安装codis(三台主机上执行）
+  </a>
+  
+    <nav class="md-nav" aria-label="5.安装codis(三台主机上执行）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-codis" class="md-nav__link">
+    5.1 下载codis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-codis" class="md-nav__link">
+    5.2 编译codis
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-bin" class="md-nav__link">
+    5.3 查看bin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-codis" class="md-nav__link">
+    5.4 创建codis所需目录
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-codisbin" class="md-nav__link">
+    5.5 拷贝codis的bin目录
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56" class="md-nav__link">
+    5.6 配置和启动各组件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#57-redis" class="md-nav__link">
+    5.7 启动redis
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codis_1" class="md-nav__link">
+    三.  配置codis
+  </a>
+  
+    <nav class="md-nav" aria-label="三.  配置codis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-codis-dashboard" class="md-nav__link">
+    1. Codis Dashboard
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Codis Dashboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-codis-dashboard" class="md-nav__link">
+    1.1 配置Codis Dashboard
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-codis-dashboard" class="md-nav__link">
+    1.2 启动Codis Dashboard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-codis-proxy" class="md-nav__link">
+    2. Codis Proxy
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Codis Proxy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-proxy" class="md-nav__link">
+    2.1 配置proxy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-proxy" class="md-nav__link">
+    2.2 启动proxy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-codis-fe" class="md-nav__link">
+    3.  Codis FE
+  </a>
+  
+    <nav class="md-nav" aria-label="3.  Codis FE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 集群管理界面
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-codis-fe" class="md-nav__link">
+    3.2 配置codis-fe
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-codis-fe" class="md-nav__link">
+    3.3 启动codis-fe
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h2 id="_1">一.基本信息<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 服务器基本信息<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>ip地址</th>
+<th>安装服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>172.16.200.71</td>
+<td>zk1、codis-dashboard、codis-fe、codis-ha、 codis-proxy1、group1_M(6379)、group2_S(6380)</td>
+</tr>
+<tr>
+<td>172.16.200.72</td>
+<td>zk2、codis-proxy2、group2_M(6379)、group3_S(6380)</td>
+</tr>
+<tr>
+<td>172.16.200.73</td>
+<td>zk3、codis-proxy3、group3_M(6379)、group1_S(6380)</td>
+</tr>
+</tbody>
+</table>
+<p>参考文档： <a href="https://github.com/CodisLabs/codis/blob/release3.1/doc/tutorial_zh.md">https://github.com/CodisLabs/codis/blob/release3.1/doc/tutorial_zh.md</a></p>
+<h3 id="2">2. 环境信息<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<h4 id="21-codis31">2.1 codis版本：3.1 版本<a class="headerlink" href="#21-codis31" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>git clone https://github.com/CodisLabs/codis.git -b release3.1
+</code></pre></div>
+<h4 id="22-gogo152linux-amd64targz">2.2 Go使用版本：go1.5.2.Linux-amd64.tar.gz<a class="headerlink" href="#22-gogo152linux-amd64targz" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>https://golang.org/doc/install?download=go1.5.2.linux-amd64.tar.gz
+</code></pre></div>
+<h4 id="23-jdkjdk180_11">2.3 jdk版本：jdk1.8.0_11<a class="headerlink" href="#23-jdkjdk180_11" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.tar.gz
+</code></pre></div>
+<h4 id="24-zookeeperzookeeper-348targz">2.4 zookeeper版本：zookeeper-3.4.8.tar.gz<a class="headerlink" href="#24-zookeeperzookeeper-348targz" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>http://mirrors.cnnic.cn/apache/zookeeper/zookeeper-3.4.6/zookeeper-3.4.6.tar.gz
+</code></pre></div>
+<h2 id="codis">二.部署codis<a class="headerlink" href="#codis" title="Permanent link">&para;</a></h2>
+<h2 id="1_1">1. 相关组件安装配置<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1  安装所需依赖包<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p>三台主机上执行</p>
+<div class="highlight"><pre><span></span><code>yum install -y gcc make gcc-c++ automake lrzsz openssl-devel zlib-* bzip2-* readline* zlib-* bzip2-* git nmap unzip wget lsof xz net-tools mercurial vim
+</code></pre></div>
+<h3 id="12">1.2 修改内核<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<p>三台主机上执行</p>
+<div class="highlight"><pre><span></span><code>vi /etc/sysctl.conf
+vm.overcommit_memory = 1
+sysctl vm.overcommit_memory=1
+</code></pre></div>
+<p>手工执行：</p>
+<div class="highlight"><pre><span></span><code>echo never &gt; /sys/kernel/mm/transparent_hugepage/enabled
+</code></pre></div>
+<p>并加到 /etc/rc.local中</p>
+<h2 id="2go">2.安装go(三台主机上执行）<a class="headerlink" href="#2go" title="Permanent link">&para;</a></h2>
+<h3 id="21-go">2.1 下载go<a class="headerlink" href="#21-go" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cd /usr/local/src
+wget https://golang.org/doc/install?download=go1.5.2.linux-amd64.tar.gz
+</code></pre></div>
+<h3 id="22">2.2 解包<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cd /usr/local/src
+tar -C /usr/local -xzf go1.5.2.linux-amd64.tar.gz
+</code></pre></div>
+<h3 id="23-gopath">2.3 新建gopath<a class="headerlink" href="#23-gopath" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>mkdir /usr/local/gopkg
+</code></pre></div>
+<h3 id="24-go">2.4 配置go环境变量<a class="headerlink" href="#24-go" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>vim /etc/profile
+</code></pre></div>
+<p>添加如下信息</p>
+<div class="highlight"><pre><span></span><code>export GOROOT=/usr/local/go
+export GOPATH=/usr/local/gopkg
+export PATH=$GOROOT/bin:$PATH
+</code></pre></div>
+<p>刷新配置文件：</p>
+<div class="highlight"><pre><span></span><code>source /etc/profile
+</code></pre></div>
+<p>查看go版本：</p>
+<div class="highlight"><pre><span></span><code>[root@codis01 ~]#go version
+go version go1.5.2 linux/amd64
+</code></pre></div>
+<h3 id="25-godep">2.5 godep安装<a class="headerlink" href="#25-godep" title="Permanent link">&para;</a></h3>
+<p>安装godep坑比较多，可使用一下两种方式安装</p>
+<ul>
+<li>
+<p>离线安装 godep 方法：
+运行 git clone <a href="https://github.com/tools/godep.git">https://github.com/tools/godep.git</a> 下载 godep 源码；
+将 godep 目录移动到 /usr/loca/gopkg/src/github.com/tools/godep，并进入该目录；
+运行命令 go install ./，该命令会将 godep 生成到/usr/loca/gopkg/bin 下。</p>
+</li>
+<li>
+<p>将编译好的godep上传到/usr/bin下</p>
+</li>
+</ul>
+<p>经过对比，我选择第二种方式，直接将编译好的godep上传到/usr/bin/</p>
+<p>查看godep命令路径</p>
+<div class="highlight"><pre><span></span><code>[root@codis01 ~]# which godep
+/usr/bin/godep
+</code></pre></div>
+<p>查看godep版本</p>
+<div class="highlight"><pre><span></span><code>[root@codis01 ~]# godep version
+godep v1 (linux/amd64/go1.4.2)
+</code></pre></div>
+<h2 id="3jdk">3.安装jdk(三台主机上执行）<a class="headerlink" href="#3jdk" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>cd /usr/loca/src/
+tar -C /usr/local/ -xzf /usr/local/src/jdk-8u111-linux-x64.tar.gz
+</code></pre></div>
+<p>配置java环境变量</p>
+<div class="highlight"><pre><span></span><code>vim /etc/profile
+</code></pre></div>
+<p>添加如下信息</p>
+<div class="highlight"><pre><span></span><code>export JAVA_HOME=/usr/local/jdk1.8.0_111
+export PATH=$JAVA_HOME/bin:$PATH
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+</code></pre></div>
+<p>刷新配置文件：</p>
+<div class="highlight"><pre><span></span><code>source /etc/profile
+</code></pre></div>
+<p>查看go版本：</p>
+<div class="highlight"><pre><span></span><code>[root@codis01 ~]#java -version
+java version &quot;1.8.0_111&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_111-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 25.111-b14, mixed mode)
+</code></pre></div>
+<h2 id="4zookeeper">4.安装zookeeper(三台主机上执行）<a class="headerlink" href="#4zookeeper" title="Permanent link">&para;</a></h2>
+<h3 id="41-zookeeper">4.1 安装zookeeper<a class="headerlink" href="#41-zookeeper" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cd /usr/local/src/
+tar -C /usr/local/ -xzf zookeeper-3.4.8.tar.gz
+cd /usr/local/zookeeper-3.4.8
+ln -s zookeeper-3.4.8 zookeeper
+</code></pre></div>
+<h3 id="42">4.2 生成配置文件<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cd /usr/local/zookeeper
+cp conf/zoo_sample.cfg conf/zoo.cfg
+</code></pre></div>
+<h3 id="43-zookeeper">4.3 修改zookeeper配置文件<a class="headerlink" href="#43-zookeeper" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>vim /usr/local/zookeeper/conf/zoo.cfg
+</code></pre></div>
+<p>修改以下内容</p>
+<div class="highlight"><pre><span></span><code>maxClientCnxns=60
+tickTime=2000
+initLimit=10
+syncLimit=5
+dataDir=/usr/local/zookeeper/data
+dataLogDir=/data/logs/zookeeper
+clientPort=2181
+server.1=172.15.200.71:2888:3888
+server.2=172.15.200.72:2888:3888
+server.3=172.15.200.73:2888:3888
+2888表示zookeeper程序监听端口，3888表示zookeeper选举通信端口。
+</code></pre></div>
+<h3 id="44">4.4 创建所需文件夹<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>mkdir -p /usr/local/zookeeper/data
+mkdir -p /data/logs/zookeeper
+</code></pre></div>
+<h3 id="45-myid">4.5 生成myid<a class="headerlink" href="#45-myid" title="Permanent link">&para;</a></h3>
+<p>主机(172.16.200.71)</p>
+<div class="highlight"><pre><span></span><code>echo &quot;1&quot; &gt;/usr/local/zookeeper/data/myid  ##生成ID，这里需要注意， myid对应的zoo.cfg的server.ID，比如第二台zookeeper主机对应的myid应该是2
+</code></pre></div>
+<p>主机(172.16.200.72)</p>
+<div class="highlight"><pre><span></span><code>echo &quot;2&quot; &gt;/usr/local/zookeeper/data/myid
+</code></pre></div>
+<p>主机(172.16.200.73)</p>
+<div class="highlight"><pre><span></span><code>echo &quot;3&quot; &gt;/usr/local/zookeeper/data/myid
+</code></pre></div>
+<h3 id="46-zookeeper">4.6 启动zookeeper<a class="headerlink" href="#46-zookeeper" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cd /usr/local/zookeeper/bin
+./zkServer.sh start#
+</code></pre></div>
+<h3 id="47-zookeeper">4.7 关闭zookeeper<a class="headerlink" href="#47-zookeeper" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cd /usr/local/zookeeper/bin
+./zkServer.sh stot
+</code></pre></div>
+<h3 id="48-zk">4.8 查看zk状态<a class="headerlink" href="#48-zk" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cd /usr/local/zookeeper/bin
+./zkServer.sh status
+</code></pre></div>
+<h3 id="49">4.9 查看相关信息：<a class="headerlink" href="#49" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>/usr/local/zookeeper/bin/zkCli.sh -server 127.0.0.1:2181
+</code></pre></div>
+<h2 id="5codis">5.安装codis(三台主机上执行）<a class="headerlink" href="#5codis" title="Permanent link">&para;</a></h2>
+<h3 id="51-codis">5.1 下载codis<a class="headerlink" href="#51-codis" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>mkdir -p /usr/local/gopkg/src/github.com/CodisLabs/
+cd /usr/local/gopkg/src/github.com/CodisLabs/
+git clone https://github.com/CodisLabs/codis.git -b release3.1
+</code></pre></div>
+<h3 id="52-codis">5.2 编译codis<a class="headerlink" href="#52-codis" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cd /usr/local/gopkg/src/github.com/CodisLabs/codis
+make
+</code></pre></div>
+<h3 id="53-bin">5.3 查看bin<a class="headerlink" href="#53-bin" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>[root@codis01 codis]# ll bin/
+总用量 82728
+drwxr-xr-x 4 root root      111 12月 18 21:54 assets
+-rwxr-xr-x 1 root root 18261200 12月 18 21:54 codis-admin
+-rwxr-xr-x 1 root root 19101304 12月 18 21:54 codis-dashboard
+-rwxr-xr-x 1 root root 17655424 12月 18 21:54 codis-fe
+-rwxr-xr-x 1 root root 10032096 12月 18 21:54 codis-ha
+-rwxr-xr-x 1 root root 11202080 12月 18 21:54 codis-proxy
+-rwxr-xr-x 1 root root  4167892 12月 18 21:54 codis-server
+-rwxr-xr-x 1 root root  2073794 12月 18 21:54 redis-benchmark
+-rwxr-xr-x 1 root root  2197701 12月 18 21:54 redis-cli
+-rw-r--r-- 1 root root      148 12月 18 21:54 version
+[root@zt-redis01 codis]#
+</code></pre></div>
+<p>执行全部指令后，会在 bin 文件夹内生成 codis-admin、codis-dashboard、codis-fe、codis-ha、codis-proxy、codis-server 六个可执行文件。
+另外, bin/assets 文件夹是 codis-dashboard  http 服务需要的前端资源, 需要和codis-dashboard 放置在同一文件夹下</p>
+<h3 id="54-codis">5.4 创建codis所需目录<a class="headerlink" href="#54-codis" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>mkdir -p /usr/local/codis
+mkdir -p /data/logs/codis
+mkdir -p /data/codis/redis_conf
+mkdir -p /data/components/redis
+</code></pre></div>
+<h3 id="55-codisbin">5.5 拷贝codis的bin目录<a class="headerlink" href="#55-codisbin" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cp -r /usr/local/gopkg/src/github.com/CodisLabs/codis/bin  /usr/local/codis/
+</code></pre></div>
+<p>由于codis 本身只有codis-server ，没有Redis-cli，需要把redis 2.8.21 安装包里面的redis-cli copy到/usr/local/codis/bin 下面:</p>
+<div class="highlight"><pre><span></span><code>cd /usr/local/gopkg/src/github.com/CodisLabs/codis/extern/redis-2.8.21/src
+cp redis-cli /usr/local/codis/bin
+</code></pre></div>
+<h3 id="56">5.6 配置和启动各组件<a class="headerlink" href="#56" title="Permanent link">&para;</a></h3>
+<p>配置和启动 Codis的Redis
+配置文件 : /usr/local/codis/redis_conf/redis6379.conf
+设置密码: xxxxx
+考虑性能，主库关闭aof和rdp，从库只开启aof:</p>
+<div class="highlight"><pre><span></span><code>cd /usr/local/gopkg/src/github.com/CodisLabs/codis/extern/redis-2.8.21/
+cp redis.conf /usr/local/codis/conf/redis6379.conf
+cp redis.conf /usr/local/codis/conf/redis6380.conf
+</code></pre></div>
+<p>将redis6379.conf更改以下参数(主库)：</p>
+<div class="highlight"><pre><span></span><code>daemonize yes
+pidfile /usr/locai/codis/run/redis6379.pid
+port 6379
+timeout 86400
+tcp-keepalive 60
+loglevel notice
+logfile /data/logs/codis/redis6379.log
+databases 16
+save &quot;&quot;
+ #save 900 1    ----关闭aof
+ #save 300 10
+ #save 60 10000
+stop-writes-on-bgsave-error no
+rdbcompression yes
+dbfilename dump6379.rdb
+dir /data/codis/redis_data_6379
+masterauth &quot;xxxxx&quot;
+slave-serve-stale-data yes
+repl-disable-tcp-nodelay no
+slave-priority 100
+requirepass &quot;xxxxx&quot;
+maxmemory 10gb
+maxmemory-policy allkeys-lru
+appendonly no
+appendfsync everysec
+no-appendfsync-on-rewrite yes
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+lua-time-limit 5000
+slowlog-log-slower-than 10000
+slowlog-max-len 128
+hash-max-ziplist-entries 512
+hash-max-ziplist-value 64
+list-max-ziplist-entries 512
+list-max-ziplist-value 64
+set-max-intset-entries 512
+zset-max-ziplist-entries 128
+zset-max-ziplist-value 64
+client-output-buffer-limit normal 0 0 0
+client-output-buffer-limit slave 0 0 0
+client-output-buffer-limit pubsub 0 0 0
+hz 10
+aof-rewrite-incremental-fsync yes
+repl-backlog-size 33554432
+</code></pre></div>
+<p>将redis6380.conf更改以下参数(从库)：</p>
+<div class="highlight"><pre><span></span><code>daemonize yes
+pidfile /usr/local/codis/run/redis6380.pid
+port 6380
+timeout 86400
+tcp-keepalive 60
+loglevel notice
+logfile /data/logs/codis/redis6380.log
+databases 16
+save &quot;&quot;
+ #save 900 1    ----关闭aof
+ #save 300 10
+ #save 60 10000
+stop-writes-on-bgsave-error no
+rdbcompression yes
+dbfilename dump6379.rdb
+dir /data/codis/redis_data_6380
+masterauth &quot;xxxxx&quot;
+slave-serve-stale-data yes
+repl-disable-tcp-nodelay no
+slave-priority 100
+requirepass &quot;xxxxx&quot;
+maxmemory 10gb
+maxmemory-policy allkeys-lru
+appendonly no
+appendfsync everysec
+no-appendfsync-on-rewrite yes
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+lua-time-limit 5000
+slowlog-log-slower-than 10000
+slowlog-max-len 128
+hash-max-ziplist-entries 512
+hash-max-ziplist-value 64
+list-max-ziplist-entries 512
+list-max-ziplist-value 64
+set-max-intset-entries 512
+zset-max-ziplist-entries 128
+zset-max-ziplist-value 64
+client-output-buffer-limit normal 0 0 0
+client-output-buffer-limit slave 0 0 0
+client-output-buffer-limit pubsub 0 0 0
+hz 10
+aof-rewrite-incremental-fsync yes
+repl-backlog-size 33554432
+</code></pre></div>
+<h3 id="57-redis">5.7 启动redis<a class="headerlink" href="#57-redis" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>/usr/local/codis/bin/codis-server  /usr/local/codis/redis_conf/redis6379.conf &amp;
+/usr/local/codis/bin/codis-server  /usr/local/codis/redis_conf/redis6380.conf &amp;
+</code></pre></div>
+<h1 id="codis_1">三.  配置codis<a class="headerlink" href="#codis_1" title="Permanent link">&para;</a></h1>
+<h2 id="1-codis-dashboard">1. Codis Dashboard<a class="headerlink" href="#1-codis-dashboard" title="Permanent link">&para;</a></h2>
+<p>Coddis3.0的dashboard与codis 2.0有所不同，作为集群管理工具，它支持codis-proxy,codis-server的添加、删除以及数据迁移等操作。在集群状态发生改变时，codis-dashboard 维护集群下所有 codis-proxy 的状态一致性。有以下两点注意事项：
+* 对于同一个业务集群而言，同一个时刻codis-dashboard只能有0个或者1个；
+* 所有对集群的修改都必须通过codis-dashboard完成。</p>
+<h3 id="11-codis-dashboard">1.1 配置Codis Dashboard<a class="headerlink" href="#11-codis-dashboard" title="Permanent link">&para;</a></h3>
+<p>默认配置文件dashboard.toml可由codis-dashboard生成。</p>
+<div class="highlight"><pre><span></span><code>#/usr/local/codis/bin/codis-dashboard  --default-config | tee  dashboard.toml（就是dashboard.conf）
+</code></pre></div>
+<p>生成dashboard.toml文件，可自行配置。</p>
+<p><div class="highlight"><pre><span></span><code># Set Coordinator, only accept&quot;zookeeper&quot;&amp;&quot;etcd&quot;
+coordinator_name = &quot;zookeeper&quot;
+coordinator_addr = &quot;172.16.200.71:2181,172.16.200.72:2181,172.16.200.73:2181&quot;        #zookeeper是集群的话就写多个ip和端口用逗号隔开
+# Set Codis Product {Name/Auth}
+product_name = &quot;codis-demo&quot;
+product_auth = &quot;&quot;
+# Set bind address for admin(rpc), tcp only.
+admin_addr = &quot;0.0.0.0:18080&quot;
+</code></pre></div>
+参数说明：</p>
+<div class="highlight"><pre><span></span><code>coordinator_name              外部存储类型，接受 zookeeper/etcd
+coordinator_addr                外部存储地址
+product_name                    集群名称，满足正则 \w[\w\.\-]*
+product_auth                      集群密码，默认为空
+admin_addr                        RESTful API 端口
+</code></pre></div>
+<h3 id="12-codis-dashboard">1.2 启动Codis Dashboard<a class="headerlink" href="#12-codis-dashboard" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>nohup   /usr/local/codis/bin/codis-dashboard   --ncpu=4    --config=dashboard.toml（这里指定dashboard.conf也可以）   --log=dashboard.log      --log-level=WARN  &amp;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>#bin/codis-dashboard   -h
+Usage:
+codis-dashboard [--ncpu=N][--config=CONF] [--log=FILE] [--log-level=LEVEL] [--host-admin=ADDR]
+codis-dashboard  --default-config
+codis-dashboard  --version
+</code></pre></div>
+<p>参数说明：</p>
+<div class="highlight"><pre><span></span><code> --ncpu=N                               最大使用 CPU 个数
+ -c  CONF, --config=CONF      指定启动配置文件
+ -l   FILE, --log=FILE                 设置 log 输出文件
+--log-level=LEVEL             设置log输出等级：INFO,WARN,DEBUG,ERROR；默认INFO，推荐WARN
+正常关闭dashboard命令：     bin/codis-admin   --dashboard=172.16.200.71:18080   --shutdown
+</code></pre></div>
+<h2 id="2-codis-proxy">2. Codis Proxy<a class="headerlink" href="#2-codis-proxy" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>对于同一个业务集群而言，可以同时部署多个codis-proxy 实例；
+不同 codis-proxy 之间由 codis-dashboard 保证状态同步。</p>
+</blockquote>
+<h3 id="21-proxy">2.1 配置proxy<a class="headerlink" href="#21-proxy" title="Permanent link">&para;</a></h3>
+<p>默认配置文件 proxy.toml 可由 codis-proxy 生成。</p>
+<p><div class="highlight"><pre><span></span><code>/usr/local/codis/bin/codis-proxy --default-config | tee proxy.toml（proxy.conf）
+</code></pre></div>
+生成proxy.toml可自行配置。</p>
+<div class="highlight"><pre><span></span><code># Set Codis Product {Name/Auth}.
+product_name = &quot;codis-demo&quot;
+product_auth = &quot;&quot;
+# Set bind address for admin(rpc), tcp only.
+admin_addr = &quot;0.0.0.0:11080&quot;
+# Set bind address for proxy, proto_type can be &quot;tcp&quot;,&quot;tcp4&quot;, &quot;tcp6&quot;, &quot;unix&quot; or &quot;unixpacket&quot;.
+proto_type = &quot;tcp4&quot;
+proxy_addr = &quot;0.0.0.0:19000&quot;
+ # Set jodis address &amp; session timeout.
+jodis_addr = &quot;&quot;
+jodis_timeout = 10
+# Proxy will ping-pong backend redis periodly to keep-alive
+backend_ping_period = 5
+# If there is no request from client for a long time, the connectionwill be droped. Set 0 to disable.
+session_max_timeout = 1800
+# Buffer size for each client connection.
+session_max_bufsize = 131072
+# Number of buffered requests for each client connection.
+# Make sure this is higher than the max number of requests for eachpipeline request, or your client may be blocked.
+session_max_pipeline = 1024
+# Set period between keep alives. Set 0 to disable.
+session_keepalive_period = 60
+</code></pre></div>
+<p>参数说明：</p>
+<div class="highlight"><pre><span></span><code>product_name 集群名称，参考dashboard参数说明
+product_auth 集群密码，默认为空
+admin_addr RESTfulAPI 端口
+proto_type Redis 端口类型，接受tcp/tcp4/tcp6/unix/unixpacket
+proxy_addr Redis 端口地址或者路径
+jodis_addr Jodis注册zookeeper地址
+jodis_timeout Jodis注册sessiontimeout时间，单位second
+jodis_compatible Jodis注册 zookeeper 的路径
+backend_ping_period 与codis-server 探活周期，单位second，0表示禁止
+session_max_timeout 与client 连接最大读超时，单位second，0表示禁止
+session_max_bufsize 与client 连接读写缓冲区大小，单位byte
+session_max_pipeline 与client 连接最大的pipeline大小
+session_keepalive_period 与client 的 tcp keepalive周期，仅tcp有效，0表示禁止
+</code></pre></div>
+<h3 id="22-proxy">2.2 启动proxy<a class="headerlink" href="#22-proxy" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>nohup /usr/local/codis/bin/codis-proxy --ncpu=4 --config=proxy.toml \
+--log=proxy.log --log-level=WARN &amp;
+</code></pre></div>
+<p>codis-proxy启动后，处于 waiting 状态，监听proxy_addr 地址，但是不会accept连接。添加到集群并完成集群状态的同步，才能改变状态为online。添加的方法有以下两种：</p>
+<blockquote>
+<p>通过codis-fe添加：通过Add Proxy按钮，将admin_addr加入到集群中；
+通过codis-admin命令行工具添加，方法如下：</p>
+</blockquote>
+<p>最好采用通过codis-fe添加</p>
+<p><div class="highlight"><pre><span></span><code>/usr/local/codis/bin/codis-admin --dashboard=172.16.200.71:18080 --create-proxy -x 172.16.200.71:11080
+</code></pre></div>
+其中172.16.200.71:18080 以及172.16.200.71:11080 分别为dashboard和proxy的admin_addr 地址。
+添加过程中，dashboard会完成如下一系列动作：
+①　获取 proxy 信息，对集群name以及auth进行验证，并将其信息写入到外部存储中；
+②　同步slots状态；
+③　标记proxy状态为online，此后proxy开始accept连接并开始提供服务。</p>
+<p>正常关闭proxy操作</p>
+<div class="highlight"><pre><span></span><code>/usr/local/codis/bin/codis-admin --proxy=172.16.200.71:11080 --auth=&quot;xxxxx&quot;(有就加，没有就不加) --shutdown
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>/usr/local/codis/bin/codis-proxy -h
+Usage:
+codis-proxy [--ncpu=N][--config=CONF] [--log=FILE] [--log-level=LEVEL] [--host-admin=ADDR]
+[--host-proxy=ADDR] [--ulimit=NLIMIT]
+codis-proxy --default-config
+codis-proxy --version
+ Options:
+    --ncpu=N 最大使用 CPU 个数
+    -c CONF, --config=CONF 指定启动配置文件
+    -l FILE, --log=FILE 设置 log 输出文件
+    --log-level=LEVEL 设置 log 输出等级：INFO,WARN,DEBUG,ERROR；默认INFO，推荐WARN
+    --ulimit=NLIMIT 检查ulimit -n的结果，确保运行时最大文件描述不少于NLIMIT
+</code></pre></div>
+<h2 id="3-codis-fe">3.  Codis FE<a class="headerlink" href="#3-codis-fe" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1 集群管理界面<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>多个集群实例可以共享同一个前端展示页面；
+通过配置文件管理后端codis-dashboard列表，配置文件可自动更新。</p>
+</blockquote>
+<h3 id="32-codis-fe">3.2 配置codis-fe<a class="headerlink" href="#32-codis-fe" title="Permanent link">&para;</a></h3>
+<p>配置文件codis.json（fe.conf）可以手动编辑，也可以通过codis-admin从外部存储中拉取。</p>
+<p><div class="highlight"><pre><span></span><code>/usr/local/codis/bin/codis-admin --dashboard-list --zookeeper=172.16.200.71:2181 | tee codis.json
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[
+    {
+&quot;name&quot;: &quot;codis-demo&quot;,
+&quot;dashboard&quot;: &quot;127.0.0.1:18080&quot;
+    }
+]
+</code></pre></div></p>
+<h3 id="33-codis-fe">3.3 启动codis-fe<a class="headerlink" href="#33-codis-fe" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>nohup /usr/local/codis/bin/codis-fe --ncpu=4 --log=fe.log --log-level=WARN \
+--dashboard-list=codis.json --listen=0.0.0.0:18090 &amp;#(这里指定端口号为18090是为了防止和codis-dashboard的端口号18080冲突)
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code>/usr/local/codis/bin/codis-fe -h
+Usage:
+    codis-fe [--ncpu=N][--log=FILE] [--log-level=LEVEL] --dashboard-list=LIST --listen=ADDR
+    codis-fe --version
+Options:
+--ncpu=N 最大使用 CPU 个数
+-d LIST,--dashboard-list=LIST 配置文件，能够自动刷新
+-l FILE, --log=FILE 设置 log 输出文件
+--log-level=LEVEL 设置 log 输出等级：INFO,WARN,DEBUG,ERROR；默认INFO，推荐WARN
+--listen=ADDR HTTP 服务端口
+</code></pre></div>
+打开浏览器，在地址栏里输入http://172.16.200.71:18090，通过管理界面操作Codis。</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../01%20Nginx/Openresty%20adds%20WAF%20configuration/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Openresty增加waf配置" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              Openresty增加waf配置
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../03%20Elk/elasticsearch-install-ik-chinese-word-breaker/" class="md-footer__link md-footer__link--next" aria-label="下一页: ElasticSearch安装IK中文分词器" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              ElasticSearch安装IK中文分词器
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2013-2020 <a href="https://doc.carsonfan.com">Carson's Docs</a>, All Rights Reserved. <a href="http://www.beian.miit.gov.cn" target="_blank">京ICP备15063656号-3</a>
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.febc23d1.min.js"></script>
+      
+    
+  </body>
+</html>
