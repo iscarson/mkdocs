@@ -16,5 +16,5 @@ jobs:
       - run: pip install git+https://${GH_TOKEN}@github.com/squidfunk/mkdocs-material-insiders.git
       - run: mkdocs gh-deploy --force
 env:
-  GH_TOKEN: ${{ secrets.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 }}
+  GH_TOKEN: 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 
 
