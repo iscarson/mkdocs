@@ -1,0 +1,2461 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Docs">
+      
+      
+      
+        <meta name="author" content="Carson">
+      
+      
+        <link rel="canonical" href="https://docs.carsonfan.com/DevOps/10%20Web/html-basics/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
+    
+    
+      
+        <title>HTML基础 - Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f7f47774.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bs" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Docs" class="md-header__button md-logo" aria-label="Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              HTML基础
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/iscarson" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Github Star
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Docs" class="md-nav__button md-logo" aria-label="Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Docs
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/iscarson" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Github Star
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        DevOps
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="DevOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1" type="checkbox" id="__nav_1_1" >
+      
+      <label class="md-nav__link" for="__nav_1_1">
+        01 Nginx
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="01 Nginx" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          01 Nginx
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Nginx/Openresty%20adds%20WAF%20configuration/" class="md-nav__link">
+        Openresty增加waf配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
+      
+      <label class="md-nav__link" for="__nav_1_2">
+        02 Redis
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="02 Redis" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          02 Redis
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Redis/codis3.1-cluster-building-including-zookeeper-cluster/" class="md-nav__link">
+        Codis3.1 集群搭建（包含zookeeper集群）
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      <label class="md-nav__link" for="__nav_1_3">
+        03 Elk
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="03 Elk" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          03 Elk
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Elk/elasticsearch-install-ik-chinese-word-breaker/" class="md-nav__link">
+        ElasticSearch安装IK中文分词器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Elk/elk-cluster-building-elasticsearch-logstash-kinaba/" class="md-nav__link">
+        ELK集群搭建（ElasticSearch Logstash Kinaba）
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      <label class="md-nav__link" for="__nav_1_4">
+        04 Data
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="04 Data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          04 Data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/kafka-cluster-construction/" class="md-nav__link">
+        kafka集群搭建
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/big-data-platform-building-hadoop%2Bspark/" class="md-nav__link">
+        大数据平台搭建（Hadoop+Spark）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/datax-synchronization-data-configuration/" class="md-nav__link">
+        DataX同步数据配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/kafka-cluster-construction/" class="md-nav__link">
+        05 Ldap
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      <label class="md-nav__link" for="__nav_1_6">
+        06 Monitor
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="06 Monitor" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          06 Monitor
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20Monitor/open-falcon-v0.2-deployment-millet-open-source-monitoring-deployment/" class="md-nav__link">
+        open-falcon v0.2 部署、小米开源监控部署
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20Monitor/zabbix-email-alert-script/" class="md-nav__link">
+        zabbix邮件报警脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      <label class="md-nav__link" for="__nav_1_7">
+        07 MySQL
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="07 MySQL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          07 MySQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07%20MySQL/mysql-multi-implementation-of-double-instances-of-mysql/" class="md-nav__link">
+        Mysql multi实现mysql双实例
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      <label class="md-nav__link" for="__nav_1_8">
+        08 Cache
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="08 Cache" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          08 Cache
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08%20Cache/initialize-cache/" class="md-nav__link">
+        初始化Cache
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08%20Cache/deploy-memcache-and-adopt-supervisor-management/" class="md-nav__link">
+        部署Memcache，采用Supervisord管理
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_9" type="checkbox" id="__nav_1_9" >
+      
+      <label class="md-nav__link" for="__nav_1_9">
+        09 Php
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="09 Php" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          09 Php
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09%20Php/php-install-bcmath-extension/" class="md-nav__link">
+        php安装bcmath扩展脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_10" type="checkbox" id="__nav_1_10" checked>
+      
+      <label class="md-nav__link" for="__nav_1_10">
+        10 Web
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="10 Web" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_10">
+          <span class="md-nav__icon md-icon"></span>
+          10 Web
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          HTML基础
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        HTML基础
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bs" class="md-nav__link">
+    一、BS模式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#html" class="md-nav__link">
+    二、HTML的定义
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#html_1" class="md-nav__link">
+    三、HTML的结构
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#html_2" class="md-nav__link">
+    四、HTML的标签格式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    五、常用标签
+  </a>
+  
+    <nav class="md-nav" aria-label="五、常用标签">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-doctype" class="md-nav__link">
+    1. &lt;!DOCTYPE&gt;标签
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 内常用标签
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 内常用标签">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1 标签
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-meta" class="md-nav__link">
+    2.2 非meta标签
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 内常用标签
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 内常用标签">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 基本标签（块级标签和内联标签）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2 \和\
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3 超链接标签(锚标签):  
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    3.4 图形标签: 
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35" class="md-nav__link">
+    3.5 列表标签
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36" class="md-nav__link">
+    3.6 表格标签: \
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_11" type="checkbox" id="__nav_1_11" >
+      
+      <label class="md-nav__link" for="__nav_1_11">
+        11 Network
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="11 Network" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_11">
+          <span class="md-nav__icon md-icon"></span>
+          11 Network
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11%20Network/01%20working%20principle%20of%20switch/" class="md-nav__link">
+        01 交换机的工作原理
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_12" type="checkbox" id="__nav_1_12" >
+      
+      <label class="md-nav__link" for="__nav_1_12">
+        12 Python
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="12 Python" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_12">
+          <span class="md-nav__icon md-icon"></span>
+          12 Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/01%20Initial%20understanding%20of%20Python%20and%20basic%20data%20types/" class="md-nav__link">
+        01 初识Python、基本数据类型
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/02%20Python%20operators/" class="md-nav__link">
+        02 Python运算符
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/03%20conditional%20statement%20and%20circular%20statement/" class="md-nav__link">
+        03 条件语句与循环语句
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/04%20basic%20data%20type%20string%20%28STR%29/" class="md-nav__link">
+        04 基本数据类型-字符串（str）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/05%20basic%20data%20type%20-%20int%2C%20bool/" class="md-nav__link">
+        05 基本数据类型-整型（int）、布尔值（bool）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/06%20basic%20data%20type%20list/" class="md-nav__link">
+        06 基本数据类型-列表（list）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/07%20basic%20data%20type%20-%20tuple%2C%20Dict/" class="md-nav__link">
+        07 基本数据类型-元祖（tuple）、字典（dict）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/08%20basic%20data%20type%20-%20set/" class="md-nav__link">
+        08 基本数据类型-集合（set）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/09%20Python%20functions/" class="md-nav__link">
+        09 Python函数
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/10%20Object%20oriented%20programming%20in%20Python/" class="md-nav__link">
+        10 Python面向对象的程序设计
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/11%20Python%20module%20and%20package%20import/" class="md-nav__link">
+        11 Python模块与包的导入
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/12%20character%20encoding%20in%20Python/" class="md-nav__link">
+        12 Python的字符编码
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/13%20pymysql%20module/" class="md-nav__link">
+        13 pymysql模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/14%20Django%20basic%20command/" class="md-nav__link">
+        14 Django基本命令
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_13" type="checkbox" id="__nav_1_13" >
+      
+      <label class="md-nav__link" for="__nav_1_13">
+        13 Jenkins
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="13 Jenkins" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_13">
+          <span class="md-nav__icon md-icon"></span>
+          13 Jenkins
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../13%20Jenkins/Pipeline%20configuration/" class="md-nav__link">
+        Pipeline配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_14" type="checkbox" id="__nav_1_14" >
+      
+      <label class="md-nav__link" for="__nav_1_14">
+        14 Vsftpd
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="14 Vsftpd" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_14">
+          <span class="md-nav__icon md-icon"></span>
+          14 Vsftpd
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../14%20Vsftpd/vsftpd%20configuration%20parameters/" class="md-nav__link">
+        Vsftpd配置参数
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_15" type="checkbox" id="__nav_1_15" >
+      
+      <label class="md-nav__link" for="__nav_1_15">
+        15 Kubernetes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="15 Kubernetes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_15">
+          <span class="md-nav__icon md-icon"></span>
+          15 Kubernetes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/01%20Kubernetes%20knowledge/" class="md-nav__link">
+        01 Kubernetes知识
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/02%20Kubernetes%20component%20description/" class="md-nav__link">
+        02 组件说明
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/03%20Kubernetes%20resource%20list/" class="md-nav__link">
+        03 资源清单
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/04%20Kubernetes%20cluster%20installation/" class="md-nav__link">
+        04 集群安装
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/05%20Kubernetes%20change%20to%20ipvs%20proxy/" class="md-nav__link">
+        05 修改ipvs代理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/06%20Kubernetes%20resource%20controller/" class="md-nav__link">
+        06 资源控制器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/07%20Kubernetes%20resource%20scheduler/" class="md-nav__link">
+        07 资源调度器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/08%20Kubernetes%20safety/" class="md-nav__link">
+        08 安全
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/09%20Kubernetes%20storage/" class="md-nav__link">
+        09 存储
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/10%20Kubernetes%20service%20discovery/" class="md-nav__link">
+        10 服务发现
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/11%20Kubernetes%20pod%20properties/" class="md-nav__link">
+        11 Pod属性
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/12%20Kubernetes%20high%20availability/" class="md-nav__link">
+        12 高可用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/13%20Kubernetes%20helm/" class="md-nav__link">
+        13 Helm
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/14%20Kubernetes%20harbor/" class="md-nav__link">
+        14 Harbor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/15%20Kubernetes%20kube%20problem%20set/" class="md-nav__link">
+        15 Kube问题集
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/16%20Kubernetes%20other/" class="md-nav__link">
+        16 其他
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_16" type="checkbox" id="__nav_1_16" >
+      
+      <label class="md-nav__link" for="__nav_1_16">
+        16 Gitlab
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="16 Gitlab" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_16">
+          <span class="md-nav__icon md-icon"></span>
+          16 Gitlab
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../16%20Gitlab/Git%20use/" class="md-nav__link">
+        Gitlab使用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../16%20Gitlab/Gitlab%20backup%20script/" class="md-nav__link">
+        Gitlab备份脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_17" type="checkbox" id="__nav_1_17" >
+      
+      <label class="md-nav__link" for="__nav_1_17">
+        17 Golang
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="17 Golang" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_17">
+          <span class="md-nav__icon md-icon"></span>
+          17 Golang
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/01%20fmt.Printf%20use/" class="md-nav__link">
+        01 fmt.Printf使用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/02%20pack/" class="md-nav__link">
+        02 打包
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/03%20Gorang%20function/" class="md-nav__link">
+        03 函数
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_18" type="checkbox" id="__nav_1_18" >
+      
+      <label class="md-nav__link" for="__nav_1_18">
+        99 Other
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="99 Other" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_18">
+          <span class="md-nav__icon md-icon"></span>
+          99 Other
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../99%20Other/Invalid%20Linux%20Ctrl%20C/" class="md-nav__link">
+        Linux Ctrl C无效
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Japanese
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Japanese" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Japanese
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/01%20Fundamentals%20of%20pronunciation/" class="md-nav__link">
+        01 发音基础
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/02%20Let%27s%20go%20and%20buy%20some%20cakes/" class="md-nav__link">
+        02 我们去买蛋糕吧
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/03%20like%20like%20like/" class="md-nav__link">
+        03 喜欢喜欢好喜欢
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/04%20buy%20buy%20buy/" class="md-nav__link">
+        04 买买买
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/05%20family/" class="md-nav__link">
+        05 家人
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/06%20what%20time%20is%20the%20Shinkansen/" class="md-nav__link">
+        06 几点的新干线
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/07%20want%20to%20want%20good%20want/" class="md-nav__link">
+        07 想要想要好想要
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/08%20want%20to%20eat/" class="md-nav__link">
+        08 想吃想吃好想吃
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/09%20my%20dream/" class="md-nav__link">
+        09 我的梦想
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/10%20It%27s%2010%20days%2C%20five%20nights%20and%20nine%20nights/" class="md-nav__link">
+        10 朝五晚九开始啦
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/11%20my/" class="md-nav__link">
+        11 我
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bs" class="md-nav__link">
+    一、BS模式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#html" class="md-nav__link">
+    二、HTML的定义
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#html_1" class="md-nav__link">
+    三、HTML的结构
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#html_2" class="md-nav__link">
+    四、HTML的标签格式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    五、常用标签
+  </a>
+  
+    <nav class="md-nav" aria-label="五、常用标签">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-doctype" class="md-nav__link">
+    1. &lt;!DOCTYPE&gt;标签
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 内常用标签
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 内常用标签">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1 标签
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-meta" class="md-nav__link">
+    2.2 非meta标签
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 内常用标签
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 内常用标签">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 基本标签（块级标签和内联标签）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2 \和\
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3 超链接标签(锚标签):  
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    3.4 图形标签: 
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35" class="md-nav__link">
+    3.5 列表标签
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36" class="md-nav__link">
+    3.6 表格标签: \
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>HTML基础</h1>
+                
+                <h2 id="bs">一、BS模式<a class="headerlink" href="#bs" title="Permanent link">&para;</a></h2>
+<p>BS(Browser-Server)模式：顾名思义为浏览器-服务器的意思，对比的话类似我们PC上面浏览器使用的产品即为BS模式产品，例如google doc、各类网站等。</p>
+<p>服务端开启一个socke进程</p>
+<div class="highlight"><pre><span></span><code>#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+import socket
+
+def main():
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind((&#39;localhost&#39;,8082))
+    sock.listen(5)
+
+    while True:
+        print(&quot;server is working.....&quot;)
+        conn, address = sock.accept()
+
+        request = conn.recv(1024)
+
+        conn.sendall(bytes(&quot;HTTP/1.1 201 OK\r\n\r\n&lt;h1&gt;Hello world&lt;/h1&gt;&quot;,&quot;utf8&quot;))
+        conn.close()
+
+if __name__ == &#39;__main__&#39;:
+
+    main()
+</code></pre></div>
+<p>浏览器输入127.0.0.1:8082访问到对应的网站</p>
+<div class="highlight"><pre><span></span><code>&lt;h1&gt;Hello world&lt;/h1&gt;
+</code></pre></div>
+<h2 id="html">二、HTML的定义<a class="headerlink" href="#html" title="Permanent link">&para;</a></h2>
+<p>超文本标记语言（英语：HyperText Markup Language，简称：HTML）是一种用于创建网页的标准标记语言。可以简单理解为一套规则，浏览器认识的规则。</p>
+<p>HTML是一种基础技术，常与CSS、JavaScript一起被众多网站用于设计令人赏心悦目的网页、网页应用程序以及移动应用程序的用户界面。网页浏览器可以读取HTML文件，并将其渲染成可视化网页。HTML描述了一个网站的结构语义随着线索的呈现，使之成为一种标记语言而非编程语言。需要注意的是，对于不同的浏览器，对同一标签可能会有不完全相同的解释（兼容性）。</p>
+<p>静态网页文件扩展名：.html 或 .htm</p>
+<h2 id="html_1">三、HTML的结构<a class="headerlink" href="#html_1" title="Permanent link">&para;</a></h2>
+<p>pcharm创建出来的默认html文档</p>
+<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;网页标题&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt; 告诉浏览器使用什么样的html或者xhtml来解析html文档
+&lt;html&gt;&lt;/html&gt;是文档的开始标记和结束标记。此元素告诉浏览器其自身是一个 HTML 文档，在它们之间是文档的头部&lt;head&gt;和主体&lt;body&gt;。
+&lt;head&gt;&lt;/head&gt;元素出现在文档的开头部分。&lt;head&gt;与&lt;/head&gt;之间的内容不会在浏览器的文档窗口显示，但是其间的元素有特殊重要的意义。
+&lt;title&gt;&lt;/title&gt;定义网页标题，在浏览器标题栏显示。 
+&lt;body&gt;&lt;/body&gt;之间的文本是可见的网页主体内容
+</code></pre></div>
+<h2 id="html_2">四、HTML的标签格式<a class="headerlink" href="#html_2" title="Permanent link">&para;</a></h2>
+<p>标签的语法：</p>
+<blockquote>
+<p>&lt;标签名 属性1=“属性值1” 属性2=“属性值2”……&gt;内容部分<!--标签名-->
+&lt;标签名 属性1=“属性值1” 属性2=“属性值2”…… /&gt;</p>
+</blockquote>
+<h2 id="_1">五、常用标签<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="1-doctype">1. &lt;!DOCTYPE&gt;标签<a class="headerlink" href="#1-doctype" title="Permanent link">&para;</a></h3>
+<!DOCTYPE>
+<p>声明位于文档中的最前面的位置，处于 <html> 标签之前。此标签可告知浏览器文档使用哪种 HTML 或 XHTML 规范。</p>
+<blockquote>
+<p>作用：声明文档的解析类型(document.compatMode)，避免浏览器的怪异模式。</p>
+</blockquote>
+<p>document.compatMode：</p>
+<ul>
+<li>BackCompat：怪异模式，浏览器使用自己的怪异模式解析渲染页面。</li>
+<li>CSS1Compat：标准模式，浏览器使用W3C的标准解析渲染页面。
+这个属性会被浏览器识别并使用，但是如果你的页面没有DOCTYPE的声明，那么compatMode默认就是BackCompat</li>
+</ul>
+<h3 id="2">2. <head>内常用标签<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<h4 id="21">2.1 <meta>标签<a class="headerlink" href="#21" title="Permanent link">&para;</a></h4>
+<p>meta介绍
+<meta>元素可提供有关页面的元信息（meta-information），针对搜索引擎和更新频度的描述和关键词。
+<meta>标签位于文档的头部，不包含任何内容。
+<meta>提供的信息是用户不可见的</p>
+<p>meta标签的组成：meta标签共有两个属性，它们分别是http-equiv属性和name 属性，不同的属性又有不同的参数值，这些不同的参数值就实现了不同的网页功能。 </p>
+<ul>
+<li>name属性: 主要用于描述网页，与之对应的属性值为content，content中的内容主要是便于搜索引擎机器人查找信息和分类信息用的。    </li>
+</ul>
+<div class="highlight"><pre><span></span><code>&lt;meta name=&quot;keywords&quot; content=&quot;meta总结,html meta,meta属性,meta跳转&quot;&gt;
+
+&lt;meta name=&quot;description&quot; content=&quot;百度是个搜索引擎&quot;&gt;
+</code></pre></div>
+<ul>
+<li>http-equiv属性：相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>&lt;meta http-equiv=&quot;Refresh&quot; content=&quot;2;URL=https://www.baidu.com&quot;&gt; //(注意后面的引号，分别在秒数的前面和网址的后面)
+
+&lt;meta http-equiv=&quot;content-Type&quot; charset=UTF8&quot;&gt;
+
+&lt;meta http-equiv = &quot;X-UA-Compatible&quot; content = &quot;IE=EmulateIE7&quot; /&gt; 
+</code></pre></div>
+<h4 id="22-meta">2.2 非meta标签<a class="headerlink" href="#22-meta" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;title&gt;</span>jd<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;icon&quot;</span> <span class="na">href=</span><span class="s">&quot;http://www.jd.com/favicon.ico&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;css.css&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script</span> <span class="na">src=</span><span class="s">&quot;hello.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div>
+
+<h3 id="3">3. <body>内常用标签<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<h4 id="31">3.1 基本标签（块级标签和内联标签）<a class="headerlink" href="#31" title="Permanent link">&para;</a></h4>
+<ul>
+<li>块级元素(block)特性：</li>
+</ul>
+<blockquote>
+<p>总是独占一行，表现为另起一行开始，而且其后的元素也必须另起一行显示;
+宽度(width)、高度(height)、内边距(padding)和外边距(margin)都可控制;</p>
+</blockquote>
+<ul>
+<li>内联元素(inline)特性：</li>
+</ul>
+<blockquote>
+<p>和相邻的内联元素在同一行;
+宽度(width)、高度(height)、内边距的top/bottom(padding-top/padding-bottom)和外边距的top/bottom(margin-top/margin-bottom)都不可改变，就是里面文字或图片的大小;</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>块级元素主要有：
+ address , blockquote , center , dir , div , dl , fieldset , form , h1 , h2 , h3 , h4 , h5 , h6 , hr , isindex , menu , noframes , noscript , ol , p , pre , table , ul , li
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>内联元素主要有：
+a , abbr , acronym , b , bdo , big , br , cite , code , dfn , em , font , i , img , input , kbd , label , q , s , samp , select , small , span , strike , strong , sub , sup ,textarea , tt , u , var
+
+可变元素(根据上下文关系确定该元素是块元素还是内联元素)：
+applet ,button ,del ,iframe , ins ,map ,object , script
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&lt;hn&gt;: n的取值范围是1~6; 从大到小. 用来表示标题.
+
+&lt;p&gt;: 段落标签. 包裹的内容被换行.并且也上下内容之间有一行空白.
+
+&lt;b&gt; &lt;strong&gt;: 加粗标签.
+
+&lt;strike&gt;: 为文字加上一条中线.
+
+&lt;em&gt;: 文字变成斜体.
+
+&lt;sup&gt;和&lt;sub&gt;: 上角标 和 下角标.
+
+&lt;br&gt;:换行.
+
+&lt;hr&gt;:水平线
+
+特殊字符：
+      &amp;lt; &amp;gt；&amp;quot；&amp;copy;&amp;reg;
+</code></pre></div>
+<h4 id="32">3.2 \<div>和\<span><a class="headerlink" href="#32" title="Permanent link">&para;</a></h4>
+<p>\<div>\</div>： \<div>只是一个块级元素，并无实际的意义。主要通过CSS样式为其赋予不同的表现. 
+\<span>\</span>： \<span>表示了内联行(行内元素),并无实际的意义,主要通过CSS样式为其赋予不同的表现. </p>
+<p>块级元素与行内元素的区别
+所谓块元素，是以另起一行开始渲染的元素，行内元素则不需另起一行。如果单独在网页中插入这两个元素，不会对页面产生任何的影响。
+这两个元素是专门为定义CSS样式而生的。</p>
+<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+
+&lt;div style=&quot;background-color: gold;&quot;&gt;yuan&lt;/div&gt;
+&lt;span style=&quot;background-color: green;&quot;&gt;span&lt;/span&gt;
+
+
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+<h4 id="33">3.3 超链接标签(锚标签): <a> </a><a class="headerlink" href="#33" title="Permanent link">&para;</a></h4>
+<p>什么是超级链接？ 所谓的超链接是指从一个网页指向一个目标的连接关系，这个目标可以是另一个网页，也可以是相同网页上 的不同位置，还可以是一个图片，一个电子邮件地址，一个文件，甚至是一个应用程序。</p>
+<div class="highlight"><pre><span></span><code>&lt;a href=&quot;&quot; target=&quot;_blank&quot; &gt;click&lt;/a&gt;
+</code></pre></div>
+<p>href属性指定目标网页地址。该地址可以有几种类型：</p>
+<p>绝对 URL - 指向另一个站点（比如 href="<a href="http://www.jd.com">http://www.jd.com</a>）
+相对 URL - 指当前站点中确切的路径（href="index.htm"）
+锚 URL - 指向页面中的锚（href=""）</p>
+<p><strong>补充：</strong></p>
+<div class="highlight"><pre><span></span><code>什么是URL？
+URL是统一资源定位器(Uniform Resource Locator)的缩写，也被称为网页地址，是因特网上标准的资源的地址。
+URL举例
+http://www.sohu.com/stu/intro.html
+http://222.172.123.33/stu/intro.html
+
+URL地址由4部分组成
+第1部分：为协议：http://、ftp://等 
+第2部分：为站点地址：可以是域名或IP地址
+第3部分：为页面在站点中的目录：stu
+第4部分：为页面名称，例如 index.html
+各部分之间用“/”符号隔开。
+</code></pre></div>
+<h4 id="34">3.4 图形标签: <img><a class="headerlink" href="#34" title="Permanent link">&para;</a></h4>
+<p>src: 要显示图片的路径.</p>
+<p>alt: 图片没有加载成功时的提示.</p>
+<p>title: 鼠标悬浮时的提示信息.</p>
+<p>width: 图片的宽</p>
+<p>height:图片的高 (宽高两个属性只用一个会自动等比缩放.)</p>
+<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h2&gt;插入图片&lt;/h2&gt;
+
+&lt;img src=&quot;s.png&quot; width=&quot;200px&quot; height=&quot;100px&quot; alt=&quot;美女&quot; title=&quot;包小姐&quot;&gt;
+
+
+&lt;a href=&quot;http://www.baidu.com&quot; target=&quot;_blank&quot;&gt;click&lt;/a&gt;
+&lt;a href=&quot;index.html&quot; target=&quot;_blank&quot;&gt;click2&lt;/a&gt;
+
+&lt;a href=&quot;http://www.baidu.com&quot;&gt;&lt;img src=&quot;s.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+<h4 id="35">3.5 列表标签<a class="headerlink" href="#35" title="Permanent link">&para;</a></h4>
+<p>\<ul>: 无序列表 [type属性：disc(实心圆点)(默认)、circle(空心圆圈)、square(实心方块)]
+\<ol>: 有序列表
+\<li>:列表中的每一项.
+\<dl> 定义列表
+\<dt> 列表标题
+\<dd> 列表项</p>
+<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+        &lt;ul&gt;
+            &lt;li&gt;1111&lt;/li&gt;
+            &lt;li&gt;2222&lt;/li&gt;
+            &lt;li&gt;3333&lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;ol&gt;
+            &lt;li&gt;1111&lt;/li&gt;
+            &lt;li&gt;2222&lt;/li&gt;
+            &lt;li&gt;3333&lt;/li&gt;
+        &lt;/ol&gt;
+
+         &lt;dl&gt;
+             &lt;dt&gt;河北省&lt;/dt&gt;
+             &lt;dd&gt;保定&lt;/dd&gt;
+             &lt;dd&gt;石家庄&lt;/dd&gt;
+             &lt;dd&gt;雄安&lt;/dd&gt;
+         &lt;/dl&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+<h4 id="36">3.6 表格标签: \<table><a class="headerlink" href="#36" title="Permanent link">&para;</a></h4>
+<p>表格是一个二维数据空间，一个表格由若干行组成，一个行又有若干单元格组成，单元格里可以包含文字、列表、图案、表单、数字符号、预置文本和其它的表格等内容。
+表格最重要的目的是显示表格类数据。表格类数据是指最适合组织为表格格式（即按行和列组织）的数据。</p>
+<ul>
+<li>表格的基本结构：</li>
+</ul>
+<div class="highlight"><pre><span></span><code>&lt;table&gt;
+         &lt;tr&gt;
+                &lt;td&gt;标题&lt;/td&gt;
+                &lt;td&gt;标题&lt;/td&gt;
+         &lt;/tr&gt;
+
+         &lt;tr&gt;
+                &lt;td&gt;内容&lt;/td&gt;
+                &lt;td&gt;内容&lt;/td&gt;
+         &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre></div>
+<p>\<tr>: table row
+\<th>: table head cell
+\<td>: table data cell</p>
+<ul>
+<li>表格的属性：</li>
+</ul>
+<div class="highlight"><pre><span></span><code>    border: 表格边框.
+
+    cellpadding: 内边距
+
+    cellspacing: 外边距.
+
+    width: 像素 百分比.（最好通过css来设置长宽）
+
+    rowspan:  单元格竖跨多少行
+
+    colspan:  单元格横跨多少列（即合并单元格）
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+            &lt;table border=&quot;1&quot; cellpadding=&quot;10px&quot; cellspacing=&quot;5px&quot;&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;姓名&lt;/th&gt;
+                    &lt;th&gt;年龄&lt;/th&gt;
+                    &lt;th&gt;性别&lt;/th&gt;
+                    &lt;th&gt;工资&lt;/th&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;111&lt;/td&gt;
+                    &lt;td&gt;111&lt;/td&gt;
+                    &lt;td&gt;111&lt;/td&gt;
+                    &lt;td&gt;111&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td colspan=&quot;2&quot;&gt;222&lt;/td&gt;
+
+                    &lt;td&gt;222&lt;/td&gt;
+                    &lt;td rowspan=&quot;2&quot;&gt;222&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;333&lt;/td&gt;
+                    &lt;td&gt;333&lt;/td&gt;
+                    &lt;td&gt;333&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+<ul>
+<li>
+<p>表单标签: <form></p>
+<p>功能：表单用于向服务器传输数据，从而实现用户与Web服务器的交互</p>
+<p>表单能够包含input系列标签，比如文本字段、复选框、单选框、提交按钮等等。</p>
+<p>表单还可以包含textarea、select、fieldset和 label标签。</p>
+</li>
+</ul>
+<blockquote>
+<p>表单属性</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code> action: 表单提交到哪.一般指向服务器端一个程序,程序接收到表单提交过来的数据（即表单元素值）作相应处理，比如https://www.sogou.com/web
+
+ method: 表单的提交方式 post/get默认取值就是get
+</code></pre></div>
+
+<blockquote>
+<p>表单元素</p>
+</blockquote>
+<p>基本概念：
+HTML表单是HTML元素中较为复杂的部分，表单往往和脚本、动态页面、数据处理等功能相结合，因此它是制作动态网站很重要的内容。
+表单一般用来收集用户的输入信息
+表单工作原理：
+访问者在浏览有表单的网页时，可填写必需的信息，然后按某个按钮提交。这些信息通过Internet传送到服务器上。 
+服务器上专门的程序对这些数据进行处理，如果有错误会返回错误信息，并要求纠正错误。当数据完整无误后，服务器反馈一个输入完成的信息</p>
+<blockquote>
+<p>\<input>系列标签</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>&lt;1&gt; 表单类型
+
+type:        text 文本输入框
+
+             password 密码输入框
+
+             radio 单选框
+
+             checkbox 多选框  
+
+             submit 提交按钮            
+
+             button 按钮(需要配合js使用.) button和submit的区别？
+
+             file 提交文件：form表单需要加上属性enctype=&quot;multipart/form-data&quot; 
+
+            上传文件注意两点：
+请求方式必须是post
+enctype=&quot;multipart/form-data&quot;
+
+ &lt;2&gt; 表单属性
+
+ name:    表单提交项的键.
+
+           注意和id属性的区别：name属性是和服务器通信时使用的名称；
+           而id属性是浏览器端使用的名称，该属性主要是为了方便客户端编程，而在css和javascript中使用的
+
+value:    表单提交项的值.对于不同的输入类型，value 属性的用法也不同：
+
+                type=&quot;button&quot;, &quot;reset&quot;, &quot;submit&quot; - 定义按钮上的显示的文本
+
+                type=&quot;text&quot;, &quot;password&quot;, &quot;hidden&quot; - 定义输入字段的初始值
+
+                type=&quot;checkbox&quot;, &quot;radio&quot;, &quot;image&quot; - 定义与输入相关联的值
+
+
+checked:  radio 和 checkbox 默认被选中
+
+readonly: 只读. text 和 password
+
+disabled: 对所用input都好使.
+</code></pre></div>
+<blockquote>
+<p>select标签</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code> &lt;select&gt; 下拉选标签属性
+
+
+          name:表单提交项的键.
+
+          size：选项个数
+
+          multiple：multiple 
+                 &lt;optgroup&gt;为每一项加上分组
+
+                 &lt;option&gt; 下拉选中的每一项 属性：
+
+                       value:表单提交项的值.   
+                       selected: selected下拉选默认被选中
+</code></pre></div>
+<blockquote>
+<p>\<textarea> 多行文本框</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>&lt;form id=&quot;form1&quot; name=&quot;form1&quot; method=&quot;post&quot; action=&quot;&quot;&gt;
+        &lt;textarea cols=“宽度” rows=“高度” name=“名称”&gt;
+                   默认内容
+        &lt;/textarea&gt;
+&lt;/form&gt;
+</code></pre></div>
+<blockquote>
+<p>\<label>标签</p>
+</blockquote>
+<p>定义：<label> 标签为 input 元素定义标注（标记）。
+说明：
+1 label 元素不会向用户呈现任何特殊效果。
+2 <label> 标签的 for 属性值应当与相关元素的 id 属性值相同。</p>
+<div class="highlight"><pre><span></span><code>&lt;form method=&quot;post&quot; action=&quot;&quot;&gt;
+
+        &lt;label for=“username”&gt;用户名&lt;/label&gt;
+        &lt;input type=“text” name=“username” id=“username” size=“20” /&gt;
+&lt;/form&gt;
+</code></pre></div>
+<blockquote>
+<p>\<fieldset>标签</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>&lt;fieldset&gt;
+    &lt;legend&gt;登录吧&lt;/legend&gt;
+    &lt;input type=&quot;text&quot;&gt;
+&lt;/fieldset&gt;
+</code></pre></div>
+<p><strong>例:</strong></p>
+<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+        &lt;h3&gt;注册页面&lt;/h3&gt;
+
+        &lt;form action=&quot;&quot; method=&quot;post&quot;&gt;
+
+            &lt;p&gt;姓名：&lt;input type=&quot;text&quot; name=&quot;username&quot; value=&quot;yaun&quot;&gt;&lt;/p&gt;
+            &lt;p&gt;密码：&lt;input type=&quot;password&quot; name=&quot;pwd&quot; value=&quot;123&quot;&gt;&lt;/p&gt;
+
+            &lt;p&gt;爱好：&lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; value=&quot;basktball&quot;&gt;篮球
+                     &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; value=&quot;football&quot;&gt;足球
+                     &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; value=&quot;ball&quot;&gt;球
+            &lt;/p&gt;
+            &lt;p&gt;
+               性别：&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;1&quot;&gt;男
+                     &lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;0&quot;&gt;女
+            &lt;/p&gt;
+
+            &lt;p&gt;&lt;input type=&quot;button&quot; value=&quot;Submit&quot;&gt;&lt;/p&gt;
+            &lt;p&gt;&lt;input type=&quot;file&quot;&gt;&lt;/p&gt;
+            &lt;p&gt;&lt;input type=&quot;reset&quot;&gt;&lt;/p&gt;
+
+
+
+
+
+
+            &lt;p&gt;&lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;&lt;/p&gt;
+
+        &lt;/form&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+&lt;!--{&quot;username&quot;:&quot;yuan&quot;,&quot;pwd&quot;:123,&quot;hobby&quot;:[],&quot;sex&quot;:1}--&gt;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+        &lt;h3&gt;注册页面&lt;/h3&gt;
+
+        &lt;form action=&quot;&quot; method=&quot;post&quot;&gt;
+
+            &lt;p&gt;
+                &lt;label for=&quot;user&quot;&gt;姓名：&lt;/label&gt;
+                &lt;input type=&quot;text&quot; name=&quot;username&quot;  id=&quot;user&quot;&gt;
+
+            &lt;/p&gt;
+            &lt;p&gt;
+                &lt;label for=&quot;pwd&quot;&gt;密码：&lt;/label&gt;
+                &lt;input type=&quot;password&quot; name=&quot;pwd&quot; id=&quot;pwd&quot;&gt;
+            &lt;/p&gt;
+
+            &lt;p&gt;爱好：&lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; value=&quot;basktball&quot; checked=&quot;checked&quot;&gt;篮球
+                     &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; value=&quot;football&quot;&gt;足球
+                     &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; value=&quot;ball&quot;&gt;球
+            &lt;/p&gt;
+            &lt;p&gt;
+               性别：&lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;1&quot;&gt;男
+                     &lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;0&quot;&gt;女
+            &lt;/p&gt;
+
+            &lt;select name=&quot;province&quot; id=&quot;&quot;  multiple &gt;
+                &lt;option value=&quot;hebei&quot;&gt;河北省&lt;/option&gt;
+                &lt;option value=&quot;henan&quot;&gt;河南省&lt;/option&gt;
+                &lt;option value=&quot;hubei&quot; selected&gt;湖北省&lt;/option&gt;
+                &lt;option value=&quot;guangdong&quot; selected&gt;广东省&lt;/option&gt;
+                &lt;option value=&quot;yunnan&quot;&gt;云南省&lt;/option&gt;
+            &lt;/select&gt;
+
+            &lt;p&gt;简介：
+                 &lt;textarea cols=&quot;23&quot; rows=&quot;10&quot; name=&quot;person&quot;&gt;
+
+                 &lt;/textarea&gt;
+            &lt;/p&gt;
+
+            &lt;fieldset&gt;
+                &lt;legend&gt;登录吧&lt;/legend&gt;
+                &lt;input type=&quot;text&quot;&gt;
+            &lt;/fieldset&gt;
+
+
+            &lt;p&gt;&lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;&lt;/p&gt;
+
+        &lt;/form&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+&lt;!--{&quot;username&quot;:&quot;yuan&quot;,&quot;pwd&quot;:123,&quot;hobby&quot;:[],&quot;sex&quot;:1,&quot;province&quot;:&quot;henan&quot;}--&gt;
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../09%20Php/php-install-bcmath-extension/" class="md-footer__link md-footer__link--prev" aria-label="上一页: php安装bcmath扩展脚本" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              php安装bcmath扩展脚本
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../11%20Network/01%20working%20principle%20of%20switch/" class="md-footer__link md-footer__link--next" aria-label="下一页: 01 交换机的工作原理" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              01 交换机的工作原理
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2013-2020 <a href="https://doc.carsonfan.com">Carson's Docs</a>, All Rights Reserved. <a href="http://www.beian.miit.gov.cn" target="_blank">京ICP备15063656号-3</a>
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.febc23d1.min.js"></script>
+      
+    
+  </body>
+</html>

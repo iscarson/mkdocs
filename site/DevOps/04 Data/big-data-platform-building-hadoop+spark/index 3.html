@@ -1,0 +1,2973 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Docs">
+      
+      
+      
+        <meta name="author" content="Carson">
+      
+      
+        <link rel="canonical" href="https://docs.carsonfan.com/DevOps/04%20Data/big-data-platform-building-hadoop%2Bspark/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
+    
+    
+      
+        <title>大数据平台搭建（Hadoop+Spark） - Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f7f47774.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Docs" class="md-header__button md-logo" aria-label="Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              大数据平台搭建（Hadoop+Spark）
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/iscarson" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Github Star
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Docs" class="md-nav__button md-logo" aria-label="Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Docs
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/iscarson" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Github Star
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        DevOps
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="DevOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1" type="checkbox" id="__nav_1_1" >
+      
+      <label class="md-nav__link" for="__nav_1_1">
+        01 Nginx
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="01 Nginx" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          01 Nginx
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Nginx/Openresty%20adds%20WAF%20configuration/" class="md-nav__link">
+        Openresty增加waf配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
+      
+      <label class="md-nav__link" for="__nav_1_2">
+        02 Redis
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="02 Redis" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          02 Redis
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Redis/codis3.1-cluster-building-including-zookeeper-cluster/" class="md-nav__link">
+        Codis3.1 集群搭建（包含zookeeper集群）
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      <label class="md-nav__link" for="__nav_1_3">
+        03 Elk
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="03 Elk" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          03 Elk
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Elk/elasticsearch-install-ik-chinese-word-breaker/" class="md-nav__link">
+        ElasticSearch安装IK中文分词器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Elk/elk-cluster-building-elasticsearch-logstash-kinaba/" class="md-nav__link">
+        ELK集群搭建（ElasticSearch Logstash Kinaba）
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" checked>
+      
+      <label class="md-nav__link" for="__nav_1_4">
+        04 Data
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="04 Data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          04 Data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kafka-cluster-construction/" class="md-nav__link">
+        kafka集群搭建
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          大数据平台搭建（Hadoop+Spark）
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        大数据平台搭建（Hadoop+Spark）
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一.基本信息
+  </a>
+  
+    <nav class="md-nav" aria-label="一.基本信息">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 服务器基本信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 软件基本信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3.环境变量汇总
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-masterslave" class="md-nav__link">
+    4. 基本环境配置（master、slave相同操作）
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 基本环境配置（master、slave相同操作）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-jdk" class="md-nav__link">
+    4.1 配置jdk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-java" class="md-nav__link">
+    4.2 配置java环境变量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    4.3 刷新配置文件：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-hosts" class="md-nav__link">
+    4.4 配置hosts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    4.5 配置免密码
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    二.大数据平台搭建
+  </a>
+  
+    <nav class="md-nav" aria-label="二.大数据平台搭建">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-hadoopmasterslave" class="md-nav__link">
+    1. 搭建Hadoop（master、slave相同操作）
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 搭建Hadoop（master、slave相同操作）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-hadoop" class="md-nav__link">
+    1.1 安装hadoop
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-hadoop" class="md-nav__link">
+    1.2 配置hadoop环境变量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    1.3 刷新配置文件：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-hadoop" class="md-nav__link">
+    1.4 修改hadoop配置文件
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 修改hadoop配置文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-hadoop" class="md-nav__link">
+    1.4.1 修改hadoop全局配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-hadoopjdk" class="md-nav__link">
+    1.4.2 配置hadoop关联jdk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-hdfs" class="md-nav__link">
+    1.4.3 配置hdfs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-mapred" class="md-nav__link">
+    1.4.4 配置mapred
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#145-slaves" class="md-nav__link">
+    1.4.5 配置slaves
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#146-yarn" class="md-nav__link">
+    1.4.6 配置yarn
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sparkmasterslave" class="md-nav__link">
+    2. 搭建Spark（master、slave相同操作）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-spark" class="md-nav__link">
+    2.1  安装spark
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-spark" class="md-nav__link">
+    2.2 配置spark环境变量
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 配置spark环境变量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    2.3 刷新配置文件：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-spark" class="md-nav__link">
+    2.4 修改spark配置文件
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 修改spark配置文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-sparkjdk" class="md-nav__link">
+    2.4.1 spark关联jdk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-slaves" class="md-nav__link">
+    2.4.2 配置slaves
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-scala" class="md-nav__link">
+    3. 安装scala
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-scalamaster" class="md-nav__link">
+    3.1 配置scala环境变量（只master安装）
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 配置scala环境变量（只master安装）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2 刷新配置文件：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 启动程序
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 启动程序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-hadoop" class="md-nav__link">
+    4.1 启动hadoop
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#411-namenode" class="md-nav__link">
+    4.1.1 格式化namenode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412-masterhadoop" class="md-nav__link">
+    4.1.2 master启动hadoop
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-spark" class="md-nav__link">
+    4.2 启动spark
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412-masterhadoop_1" class="md-nav__link">
+    4.1.2 master启动hadoop
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../datax-synchronization-data-configuration/" class="md-nav__link">
+        DataX同步数据配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kafka-cluster-construction/" class="md-nav__link">
+        05 Ldap
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      <label class="md-nav__link" for="__nav_1_6">
+        06 Monitor
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="06 Monitor" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          06 Monitor
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20Monitor/open-falcon-v0.2-deployment-millet-open-source-monitoring-deployment/" class="md-nav__link">
+        open-falcon v0.2 部署、小米开源监控部署
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20Monitor/zabbix-email-alert-script/" class="md-nav__link">
+        zabbix邮件报警脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      <label class="md-nav__link" for="__nav_1_7">
+        07 MySQL
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="07 MySQL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          07 MySQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07%20MySQL/mysql-multi-implementation-of-double-instances-of-mysql/" class="md-nav__link">
+        Mysql multi实现mysql双实例
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      <label class="md-nav__link" for="__nav_1_8">
+        08 Cache
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="08 Cache" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          08 Cache
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08%20Cache/initialize-cache/" class="md-nav__link">
+        初始化Cache
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08%20Cache/deploy-memcache-and-adopt-supervisor-management/" class="md-nav__link">
+        部署Memcache，采用Supervisord管理
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_9" type="checkbox" id="__nav_1_9" >
+      
+      <label class="md-nav__link" for="__nav_1_9">
+        09 Php
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="09 Php" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          09 Php
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09%20Php/php-install-bcmath-extension/" class="md-nav__link">
+        php安装bcmath扩展脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_10" type="checkbox" id="__nav_1_10" >
+      
+      <label class="md-nav__link" for="__nav_1_10">
+        10 Web
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="10 Web" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_10">
+          <span class="md-nav__icon md-icon"></span>
+          10 Web
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10%20Web/html-basics/" class="md-nav__link">
+        HTML基础
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_11" type="checkbox" id="__nav_1_11" >
+      
+      <label class="md-nav__link" for="__nav_1_11">
+        11 Network
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="11 Network" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_11">
+          <span class="md-nav__icon md-icon"></span>
+          11 Network
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11%20Network/01%20working%20principle%20of%20switch/" class="md-nav__link">
+        01 交换机的工作原理
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_12" type="checkbox" id="__nav_1_12" >
+      
+      <label class="md-nav__link" for="__nav_1_12">
+        12 Python
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="12 Python" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_12">
+          <span class="md-nav__icon md-icon"></span>
+          12 Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/01%20Initial%20understanding%20of%20Python%20and%20basic%20data%20types/" class="md-nav__link">
+        01 初识Python、基本数据类型
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/02%20Python%20operators/" class="md-nav__link">
+        02 Python运算符
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/03%20conditional%20statement%20and%20circular%20statement/" class="md-nav__link">
+        03 条件语句与循环语句
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/04%20basic%20data%20type%20string%20%28STR%29/" class="md-nav__link">
+        04 基本数据类型-字符串（str）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/05%20basic%20data%20type%20-%20int%2C%20bool/" class="md-nav__link">
+        05 基本数据类型-整型（int）、布尔值（bool）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/06%20basic%20data%20type%20list/" class="md-nav__link">
+        06 基本数据类型-列表（list）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/07%20basic%20data%20type%20-%20tuple%2C%20Dict/" class="md-nav__link">
+        07 基本数据类型-元祖（tuple）、字典（dict）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/08%20basic%20data%20type%20-%20set/" class="md-nav__link">
+        08 基本数据类型-集合（set）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/09%20Python%20functions/" class="md-nav__link">
+        09 Python函数
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/10%20Object%20oriented%20programming%20in%20Python/" class="md-nav__link">
+        10 Python面向对象的程序设计
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/11%20Python%20module%20and%20package%20import/" class="md-nav__link">
+        11 Python模块与包的导入
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/12%20character%20encoding%20in%20Python/" class="md-nav__link">
+        12 Python的字符编码
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/13%20pymysql%20module/" class="md-nav__link">
+        13 pymysql模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/14%20Django%20basic%20command/" class="md-nav__link">
+        14 Django基本命令
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_13" type="checkbox" id="__nav_1_13" >
+      
+      <label class="md-nav__link" for="__nav_1_13">
+        13 Jenkins
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="13 Jenkins" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_13">
+          <span class="md-nav__icon md-icon"></span>
+          13 Jenkins
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../13%20Jenkins/Pipeline%20configuration/" class="md-nav__link">
+        Pipeline配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_14" type="checkbox" id="__nav_1_14" >
+      
+      <label class="md-nav__link" for="__nav_1_14">
+        14 Vsftpd
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="14 Vsftpd" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_14">
+          <span class="md-nav__icon md-icon"></span>
+          14 Vsftpd
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../14%20Vsftpd/vsftpd%20configuration%20parameters/" class="md-nav__link">
+        Vsftpd配置参数
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_15" type="checkbox" id="__nav_1_15" >
+      
+      <label class="md-nav__link" for="__nav_1_15">
+        15 Kubernetes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="15 Kubernetes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_15">
+          <span class="md-nav__icon md-icon"></span>
+          15 Kubernetes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/01%20Kubernetes%20knowledge/" class="md-nav__link">
+        01 Kubernetes知识
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/02%20Kubernetes%20component%20description/" class="md-nav__link">
+        02 组件说明
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/03%20Kubernetes%20resource%20list/" class="md-nav__link">
+        03 资源清单
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/04%20Kubernetes%20cluster%20installation/" class="md-nav__link">
+        04 集群安装
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/05%20Kubernetes%20change%20to%20ipvs%20proxy/" class="md-nav__link">
+        05 修改ipvs代理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/06%20Kubernetes%20resource%20controller/" class="md-nav__link">
+        06 资源控制器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/07%20Kubernetes%20resource%20scheduler/" class="md-nav__link">
+        07 资源调度器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/08%20Kubernetes%20safety/" class="md-nav__link">
+        08 安全
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/09%20Kubernetes%20storage/" class="md-nav__link">
+        09 存储
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/10%20Kubernetes%20service%20discovery/" class="md-nav__link">
+        10 服务发现
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/11%20Kubernetes%20pod%20properties/" class="md-nav__link">
+        11 Pod属性
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/12%20Kubernetes%20high%20availability/" class="md-nav__link">
+        12 高可用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/13%20Kubernetes%20helm/" class="md-nav__link">
+        13 Helm
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/14%20Kubernetes%20harbor/" class="md-nav__link">
+        14 Harbor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/15%20Kubernetes%20kube%20problem%20set/" class="md-nav__link">
+        15 Kube问题集
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/16%20Kubernetes%20other/" class="md-nav__link">
+        16 其他
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_16" type="checkbox" id="__nav_1_16" >
+      
+      <label class="md-nav__link" for="__nav_1_16">
+        16 Gitlab
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="16 Gitlab" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_16">
+          <span class="md-nav__icon md-icon"></span>
+          16 Gitlab
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../16%20Gitlab/Git%20use/" class="md-nav__link">
+        Gitlab使用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../16%20Gitlab/Gitlab%20backup%20script/" class="md-nav__link">
+        Gitlab备份脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_17" type="checkbox" id="__nav_1_17" >
+      
+      <label class="md-nav__link" for="__nav_1_17">
+        17 Golang
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="17 Golang" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_17">
+          <span class="md-nav__icon md-icon"></span>
+          17 Golang
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/01%20fmt.Printf%20use/" class="md-nav__link">
+        01 fmt.Printf使用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/02%20pack/" class="md-nav__link">
+        02 打包
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/03%20Gorang%20function/" class="md-nav__link">
+        03 函数
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_18" type="checkbox" id="__nav_1_18" >
+      
+      <label class="md-nav__link" for="__nav_1_18">
+        99 Other
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="99 Other" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_18">
+          <span class="md-nav__icon md-icon"></span>
+          99 Other
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../99%20Other/Invalid%20Linux%20Ctrl%20C/" class="md-nav__link">
+        Linux Ctrl C无效
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Japanese
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Japanese" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Japanese
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/01%20Fundamentals%20of%20pronunciation/" class="md-nav__link">
+        01 发音基础
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/02%20Let%27s%20go%20and%20buy%20some%20cakes/" class="md-nav__link">
+        02 我们去买蛋糕吧
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/03%20like%20like%20like/" class="md-nav__link">
+        03 喜欢喜欢好喜欢
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/04%20buy%20buy%20buy/" class="md-nav__link">
+        04 买买买
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/05%20family/" class="md-nav__link">
+        05 家人
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/06%20what%20time%20is%20the%20Shinkansen/" class="md-nav__link">
+        06 几点的新干线
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/07%20want%20to%20want%20good%20want/" class="md-nav__link">
+        07 想要想要好想要
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/08%20want%20to%20eat/" class="md-nav__link">
+        08 想吃想吃好想吃
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/09%20my%20dream/" class="md-nav__link">
+        09 我的梦想
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/10%20It%27s%2010%20days%2C%20five%20nights%20and%20nine%20nights/" class="md-nav__link">
+        10 朝五晚九开始啦
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/11%20my/" class="md-nav__link">
+        11 我
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一.基本信息
+  </a>
+  
+    <nav class="md-nav" aria-label="一.基本信息">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 服务器基本信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 软件基本信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3.环境变量汇总
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-masterslave" class="md-nav__link">
+    4. 基本环境配置（master、slave相同操作）
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 基本环境配置（master、slave相同操作）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-jdk" class="md-nav__link">
+    4.1 配置jdk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-java" class="md-nav__link">
+    4.2 配置java环境变量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    4.3 刷新配置文件：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-hosts" class="md-nav__link">
+    4.4 配置hosts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    4.5 配置免密码
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    二.大数据平台搭建
+  </a>
+  
+    <nav class="md-nav" aria-label="二.大数据平台搭建">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-hadoopmasterslave" class="md-nav__link">
+    1. 搭建Hadoop（master、slave相同操作）
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 搭建Hadoop（master、slave相同操作）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-hadoop" class="md-nav__link">
+    1.1 安装hadoop
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-hadoop" class="md-nav__link">
+    1.2 配置hadoop环境变量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    1.3 刷新配置文件：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-hadoop" class="md-nav__link">
+    1.4 修改hadoop配置文件
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 修改hadoop配置文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-hadoop" class="md-nav__link">
+    1.4.1 修改hadoop全局配置文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-hadoopjdk" class="md-nav__link">
+    1.4.2 配置hadoop关联jdk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-hdfs" class="md-nav__link">
+    1.4.3 配置hdfs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-mapred" class="md-nav__link">
+    1.4.4 配置mapred
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#145-slaves" class="md-nav__link">
+    1.4.5 配置slaves
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#146-yarn" class="md-nav__link">
+    1.4.6 配置yarn
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sparkmasterslave" class="md-nav__link">
+    2. 搭建Spark（master、slave相同操作）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-spark" class="md-nav__link">
+    2.1  安装spark
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-spark" class="md-nav__link">
+    2.2 配置spark环境变量
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 配置spark环境变量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    2.3 刷新配置文件：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-spark" class="md-nav__link">
+    2.4 修改spark配置文件
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 修改spark配置文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-sparkjdk" class="md-nav__link">
+    2.4.1 spark关联jdk
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-slaves" class="md-nav__link">
+    2.4.2 配置slaves
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-scala" class="md-nav__link">
+    3. 安装scala
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-scalamaster" class="md-nav__link">
+    3.1 配置scala环境变量（只master安装）
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 配置scala环境变量（只master安装）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2 刷新配置文件：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 启动程序
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 启动程序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-hadoop" class="md-nav__link">
+    4.1 启动hadoop
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#411-namenode" class="md-nav__link">
+    4.1.1 格式化namenode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412-masterhadoop" class="md-nav__link">
+    4.1.2 master启动hadoop
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-spark" class="md-nav__link">
+    4.2 启动spark
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412-masterhadoop_1" class="md-nav__link">
+    4.1.2 master启动hadoop
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>大数据平台搭建（Hadoop+Spark）</h1>
+                
+                <h2 id="_1">一.基本信息<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 服务器基本信息<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>ip地址</th>
+<th>安装服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spark-master</td>
+<td>172.16.200.81</td>
+<td>jdk、hadoop、spark、scala</td>
+</tr>
+<tr>
+<td>spark-slave01</td>
+<td>172.16.200.82</td>
+<td>jdk、hadoop、spark</td>
+</tr>
+<tr>
+<td>spark-slave02</td>
+<td>172.16.200.83</td>
+<td>jdk、hadoop、spark</td>
+</tr>
+<tr>
+<td>spark-slave03</td>
+<td>172.16.200.84</td>
+<td>jdk、hadoop、spark</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2">2. 软件基本信息<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>软件名</th>
+<th>版本</th>
+<th>安装路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>oracle jdk</td>
+<td>1.8.0_111</td>
+<td>/usr/local/jdk1.8.0_111</td>
+</tr>
+<tr>
+<td>hadoop</td>
+<td>2.7.1</td>
+<td>/usr/local/hadoop-2.7.3</td>
+</tr>
+<tr>
+<td>spark</td>
+<td>2.0.2</td>
+<td>/usr/local/spark-2.0.2</td>
+</tr>
+<tr>
+<td>scala</td>
+<td>2.12.1</td>
+<td>usr/local/2.12.1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3">3.环境变量汇总<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>############# java ############
+export JAVA_HOME=/usr/local/jdk1.8.0_111
+export PATH=$JAVA_HOME/bin:$PATH
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+
+
+########### hadoop ##########
+export HADOOP_HOME=/usr/local/hadoop-2.7.3
+export PATH=$JAVA_HOme/bin:$HADOOP_HOME/bin:$PATH
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+
+
+
+######### spark ############
+export SPARK_HOME=/usr/local/spark-2.0.2
+export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+
+######### scala ##########
+export SCALA_HOME=/usr/local/scala-2.12.1
+export PATH=$PATH:$SCALA_HOME/bin
+</code></pre></div>
+<h3 id="4-masterslave">4. 基本环境配置（master、slave相同操作）<a class="headerlink" href="#4-masterslave" title="Permanent link">&para;</a></h3>
+<h4 id="41-jdk">4.1 配置jdk<a class="headerlink" href="#41-jdk" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>cd /usr/loca/src/
+tar -C /usr/local/ -xzf /usr/local/src/jdk-8u111-linux-x64.tar.gz
+</code></pre></div>
+<h4 id="42-java">4.2 配置java环境变量<a class="headerlink" href="#42-java" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>vim /etc/profile
+</code></pre></div>
+<p>添加如下信息
+<div class="highlight"><pre><span></span><code>######### jdk ############
+export JAVA_HOME=/usr/local/jdk1.8.0_111
+export PATH=$JAVA_HOME/bin:$PATH
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+</code></pre></div></p>
+<h4 id="43">4.3 刷新配置文件：<a class="headerlink" href="#43" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>source /etc/profile
+</code></pre></div>
+<h4 id="44-hosts">4.4 配置hosts<a class="headerlink" href="#44-hosts" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>vim /etc/hosts
+172.16.200.81   spark-master
+172.16.200.82   spark-slave1
+172.16.200.83   spark-slave2
+</code></pre></div>
+<h4 id="45">4.5 配置免密码<a class="headerlink" href="#45" title="Permanent link">&para;</a></h4>
+<p>生成密钥对</p>
+<p><div class="highlight"><pre><span></span><code>ssh-keygen
+</code></pre></div>
+如果密钥不设置密码，则连按几下回车</p>
+<p>先配置本机免密码登录</p>
+<div class="highlight"><pre><span></span><code>cd /root/.ssh
+cat id_rsa.pub &gt; authorized_keys
+chmod 600 authorized_keys
+</code></pre></div>
+<p>再将其它主机id_rsa.pub 内容追加到 authorized_keys中，三台配置完成后即可实现免密码登录</p>
+<h2 id="_2">二.大数据平台搭建<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1-hadoopmasterslave">1. 搭建Hadoop（master、slave相同操作）<a class="headerlink" href="#1-hadoopmasterslave" title="Permanent link">&para;</a></h3>
+<h4 id="11-hadoop">1.1 安装hadoop<a class="headerlink" href="#11-hadoop" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>cd /usr/loca/src/
+tar -C /usr/local/ -xzf hadoop-2.7.3.tar.gz
+</code></pre></div>
+<h4 id="12-hadoop">1.2 配置hadoop环境变量<a class="headerlink" href="#12-hadoop" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>vim /etc/profile
+</code></pre></div>
+<p>添加如下信息</p>
+<div class="highlight"><pre><span></span><code>######### hadoop ############
+export HADOOP_HOME=/usr/local/hadoop-2.7.3
+export PATH=$JAVA_HOme/bin:$HADOOP_HOME/bin:$PATH
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+</code></pre></div>
+<h4 id="13">1.3 刷新配置文件：<a class="headerlink" href="#13" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>source /etc/profile
+</code></pre></div>
+<h3 id="14-hadoop">1.4 修改hadoop配置文件<a class="headerlink" href="#14-hadoop" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cd /usr/local/hadoop-2.7.3/etc/hadoop
+</code></pre></div>
+<p>查看</p>
+<div class="highlight"><pre><span></span><code>root@spark-master hadoop]# ll
+总用量 152
+-rw-r--r--. 1 root root  4436 8月  18 09:49 capacity-scheduler.xml
+-rw-r--r--. 1 root root  1335 8月  18 09:49 configuration.xsl
+-rw-r--r--. 1 root root   318 8月  18 09:49 container-executor.cfg
+-rw-r--r--. 1 root root  1037 12月 21 14:58 core-site.xml
+-rw-r--r--. 1 root root  3589 8月  18 09:49 hadoop-env.cmd
+-rw-r--r--. 1 root root  4235 12月 21 11:17 hadoop-env.sh
+-rw-r--r--. 1 root root  2598 8月  18 09:49 hadoop-metrics2.properties
+-rw-r--r--. 1 root root  2490 8月  18 09:49 hadoop-metrics.properties
+-rw-r--r--. 1 root root  9683 8月  18 09:49 hadoop-policy.xml
+-rw-r--r--. 1 root root  1826 12月 21 14:11 hdfs-site.xml
+-rw-r--r--. 1 root root  1449 8月  18 09:49 httpfs-env.sh
+-rw-r--r--. 1 root root  1657 8月  18 09:49 httpfs-log4j.properties
+-rw-r--r--. 1 root root    21 8月  18 09:49 httpfs-signature.secret
+-rw-r--r--. 1 root root   620 8月  18 09:49 httpfs-site.xml
+-rw-r--r--. 1 root root  3518 8月  18 09:49 kms-acls.xml
+-rw-r--r--. 1 root root  1527 8月  18 09:49 kms-env.sh
+-rw-r--r--. 1 root root  1631 8月  18 09:49 kms-log4j.properties
+-rw-r--r--. 1 root root  5511 8月  18 09:49 kms-site.xml
+-rw-r--r--. 1 root root 11237 8月  18 09:49 log4j.properties
+-rw-r--r--. 1 root root   931 8月  18 09:49 mapred-env.cmd
+-rw-r--r--. 1 root root  1383 8月  18 09:49 mapred-env.sh
+-rw-r--r--. 1 root root  4113 8月  18 09:49 mapred-queues.xml.template
+-rw-r--r--. 1 root root  1612 12月 21 12:03 mapred-site.xml
+-rw-r--r--. 1 root root    56 12月 21 16:30 slaves
+-rw-r--r--. 1 root root  2316 8月  18 09:49 ssl-client.xml.example
+-rw-r--r--. 1 root root  2268 8月  18 09:49 ssl-server.xml.example
+-rw-r--r--. 1 root root  2191 8月  18 09:49 yarn-env.cmd
+-rw-r--r--. 1 root root  4564 12月 21 11:19 yarn-env.sh
+-rw-r--r--. 1 root root  1195 12月 21 14:24 yarn-site.xml
+</code></pre></div>
+<h4 id="141-hadoop">1.4.1 修改hadoop全局配置文件<a class="headerlink" href="#141-hadoop" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>vim core-site.xml
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;
+
+&lt;!-- Put site-specific property overrides in this file. --&gt;
+
+&lt;configuration&gt;
+&lt;!--配置namenode的地址--&gt;
+
+  &lt;property&gt;
+    &lt;name&gt;fs.defaultFS&lt;/name&gt;
+    &lt;value&gt;hdfs://172.16.200.81:9000&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!-- 指定hadoop运行时产生文件的存储目录 --&gt;
+  &lt;property&gt;
+    &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+    &lt;value&gt;file:///data/hadoop/data/tmp&lt;/value&gt;
+ &lt;/property&gt;        
+&lt;/configuration&gt;
+</code></pre></div>
+<h4 id="142-hadoopjdk">1.4.2 配置hadoop关联jdk<a class="headerlink" href="#142-hadoopjdk" title="Permanent link">&para;</a></h4>
+<p><code>vim hadoop-env.sh</code></p>
+<div class="highlight"><pre><span></span><code># Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# &quot;License&quot;); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Set Hadoop-specific environment variables here.
+
+# The only required environment variable is JAVA_HOME.  All others are
+# optional.  When running a distributed configuration it is best to
+# set JAVA_HOME in this file, so that it is correctly defined on
+# remote nodes.
+
+# The java implementation to use.
+#配置jdk的环境
+export JAVA_HOME=/usr/local/jdk1.8.0_111
+
+# The jsvc implementation to use. Jsvc is required to run secure datanodes
+# that bind to privileged ports to provide authentication of data transfer
+# protocol.  Jsvc is not required if SASL is configured for authentication of
+# data transfer protocol using non-privileged ports.
+#export JSVC_HOME=${JSVC_HOME}
+
+export HADOOP_CONF_DIR=${HADOOP_CONF_DIR:-&quot;/etc/hadoop&quot;}
+
+# Extra Java CLASSPATH elements.  Automatically insert capacity-scheduler.
+for f in $HADOOP_HOME/contrib/capacity-scheduler/*.jar; do
+  if [ &quot;$HADOOP_CLASSPATH&quot; ]; then
+    export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$f
+  else
+    export HADOOP_CLASSPATH=$f
+  fi
+done
+
+# The maximum amount of heap to use, in MB. Default is 1000.
+#export HADOOP_HEAPSIZE=
+#export HADOOP_NAMENODE_INIT_HEAPSIZE=&quot;&quot;
+
+# Extra Java runtime options.  Empty by default.
+export HADOOP_OPTS=&quot;$HADOOP_OPTS -Djava.net.preferIPv4Stack=true&quot;
+
+# Command specific options appended to HADOOP_OPTS when specified
+export HADOOP_NAMENODE_OPTS=&quot;-Dhadoop.security.logger=${HADOOP_SECURITY_LOGGER:-INFO,RFAS} -Dhdfs.audit.logger=${HDFS_AUDIT_LOGGER:-INFO,NullAppender} $HADOOP_NAMENODE_OPTS&quot;
+export HADOOP_DATANODE_OPTS=&quot;-Dhadoop.security.logger=ERROR,RFAS $HADOOP_DATANODE_OPTS&quot;
+
+export HADOOP_SECONDARYNAMENODE_OPTS=&quot;-Dhadoop.security.logger=${HADOOP_SECURITY_LOGGER:-INFO,RFAS} -Dhdfs.audit.logger=${HDFS_AUDIT_LOGGER:-INFO,NullAppender} $HADOOP_SECONDARYNAMENODE_OPTS&quot;
+
+export HADOOP_NFS3_OPTS=&quot;$HADOOP_NFS3_OPTS&quot;
+export HADOOP_PORTMAP_OPTS=&quot;-Xmx512m $HADOOP_PORTMAP_OPTS&quot;
+
+# The following applies to multiple commands (fs, dfs, fsck, distcp etc)
+export HADOOP_CLIENT_OPTS=&quot;-Xmx512m $HADOOP_CLIENT_OPTS&quot;
+#HADOOP_JAVA_PLATFORM_OPTS=&quot;-XX:-UsePerfData $HADOOP_JAVA_PLATFORM_OPTS&quot;
+
+# On secure datanodes, user to run the datanode as after dropping privileges.
+# This **MUST** be uncommented to enable secure HDFS if using privileged ports
+# to provide authentication of data transfer protocol.  This **MUST NOT** be
+# defined if SASL is configured for authentication of data transfer protocol
+# using non-privileged ports.
+export HADOOP_SECURE_DN_USER=${HADOOP_SECURE_DN_USER}
+
+# Where log files are stored.  $HADOOP_HOME/logs by default.
+#export HADOOP_LOG_DIR=${HADOOP_LOG_DIR}/$USER
+
+# Where log files are stored in the secure data environment.
+export HADOOP_SECURE_DN_LOG_DIR=${HADOOP_LOG_DIR}/${HADOOP_HDFS_USER}
+
+###
+# HDFS Mover specific parameters
+###
+# Specify the JVM options to be used when starting the HDFS Mover.
+# These options will be appended to the options specified as HADOOP_OPTS
+# and therefore may override any similar flags set in HADOOP_OPTS
+#
+# export HADOOP_MOVER_OPTS=&quot;&quot;
+
+###
+# Advanced Users Only!
+###
+
+# The directory where pid files are stored. /tmp by default.
+# NOTE: this should be set to a directory that can only be written to by 
+#       the user that will run the hadoop daemons.  Otherwise there is the
+#       potential for a symlink attack.
+export HADOOP_PID_DIR=${HADOOP_PID_DIR}
+export HADOOP_SECURE_DN_PID_DIR=${HADOOP_PID_DIR}
+
+# A string representing this instance of hadoop. $USER by default.
+export HADOOP_IDENT_STRING=$USER
+</code></pre></div>
+<h4 id="143-hdfs">1.4.3 配置hdfs<a class="headerlink" href="#143-hdfs" title="Permanent link">&para;</a></h4>
+<p><code>vim hdfs-site.xml</code>
+<div class="highlight"><pre><span></span><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;
+&lt;!--
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+--&gt;
+
+&lt;!-- Put site-specific property overrides in this file. --&gt;
+
+&lt;configuration&gt;
+&lt;!--指定hdfs的副本数--&gt;
+  &lt;property&gt;
+        &lt;name&gt;dfs.replication&lt;/name&gt;
+        &lt;value&gt;3&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!--设置hdfs的权限--&gt;  
+  &lt;property&gt;
+         &lt;name&gt;dfs.permissions&lt;/name&gt;
+         &lt;value&gt;false&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!-- secondary name node web 监听端口 --&gt;       
+  &lt;property&gt;
+         &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;
+         &lt;value&gt;172.16.200.81:50090&lt;/value&gt;
+  &lt;/property&gt;
+ &lt;!-- name node web 监听端口 --&gt;
+
+  &lt;property&gt;
+    &lt;name&gt;dfs.namenode.http-address&lt;/name&gt;
+    &lt;value&gt;172.16.200.81:50070&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!-- 真正的datanode数据保存路径 --&gt;
+  &lt;property&gt;
+    &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+    &lt;value&gt;file:///data/hadoop/data/dfs/dn&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!-- NN所使用的元数据保存--&gt;
+  &lt;property&gt;
+    &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+    &lt;value&gt;file:///data/hadoop/data/dfs/nn/name&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!--存放 edit 文件--&gt;
+  &lt;property&gt;
+    &lt;name&gt;dfs.namenode.edits.dir&lt;/name&gt;
+    &lt;value&gt;file:///data/hadoop/data/dfs/nn/edits&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!-- secondary namenode 节点存储 checkpoint 文件目录--&gt;
+  &lt;property&gt;
+    &lt;name&gt;dfs.namenode.checkpoint.dir&lt;/name&gt;
+    &lt;value&gt;file:///data/hadoop/data/dfs/snn/name&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!-- secondary namenode 节点存储 edits 文件目录--&gt;
+  &lt;property&gt;
+    &lt;name&gt;dfs.namenode.checkpoint.edits.dir&lt;/name&gt;
+    &lt;value&gt;file:///data/hadoop/data/dfs/snn/edits&lt;/value&gt;
+  &lt;/property&gt;
+
+&lt;/configuration&gt;
+</code></pre></div></p>
+<h4 id="144-mapred">1.4.4 配置mapred<a class="headerlink" href="#144-mapred" title="Permanent link">&para;</a></h4>
+<p><code>vim mapred-site.xml</code></p>
+<div class="highlight"><pre><span></span><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;
+&lt;!--
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+--&gt;
+
+&lt;!-- Put site-specific property overrides in this file. --&gt;
+
+&lt;configuration&gt;
+&lt;!-- 指定mr运行在yarn上 --&gt;
+  &lt;property&gt;
+        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+        &lt;value&gt;yarn&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!--历史服务的web端口地址  --&gt;
+  &lt;property&gt;
+    &lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;
+    &lt;value&gt;172.16.200.81:19888&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!--历史服务的端口地址--&gt;
+  &lt;property&gt;
+    &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;
+    &lt;value&gt;172.16.200.81:10020&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!--Uber运行模式--&gt;
+  &lt;property&gt;
+    &lt;name&gt;mapreduce.job.ubertask.enable&lt;/name&gt;
+    &lt;value&gt;false&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!--MapReduce作业产生的日志存放位置。--&gt;
+  &lt;property&gt;
+    &lt;name&gt;mapreduce.jobhistory.intermediate-done-dir&lt;/name&gt;
+    &lt;value&gt;${yarn.app.mapreduce.am.staging-dir}/history/done_intermediate&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!--MR JobHistory Server管理的日志的存放位置--&gt;
+  &lt;property&gt;
+    &lt;name&gt;mapreduce.jobhistory.done-dir&lt;/name&gt;
+    &lt;value&gt;${yarn.app.mapreduce.am.staging-dir}/history/done&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!--是job运行时的临时文件夹--&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.app.mapreduce.am.staging-dir&lt;/name&gt;
+    &lt;value&gt;/data/hadoop/hadoop-yarn/staging&lt;/value&gt;
+  &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre></div>
+<h4 id="145-slaves">1.4.5 配置slaves<a class="headerlink" href="#145-slaves" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>vim slaves
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>172.16.200.81
+172.16.200.82
+172.16.200.83
+172.16.200.84
+</code></pre></div>
+<h4 id="146-yarn">1.4.6 配置yarn<a class="headerlink" href="#146-yarn" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>vim yarn-site.xml
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;!--
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+--&gt;
+&lt;configuration&gt;
+&lt;!-- 指定nodeManager组件在哪个机子上跑 --&gt;
+  &lt;property&gt;
+        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!-- 指定resourcemanager组件在哪个机子上跑 --&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+    &lt;value&gt;172.16.200.81&lt;/value&gt;
+  &lt;/property&gt; 
+ &lt;!--resourcemanager web地址--&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;
+    &lt;value&gt;172.16.200.81:8088&lt;/value&gt;
+  &lt;/property&gt;
+ &lt;!--启用日志聚集功能--&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.log-aggregation-enable&lt;/name&gt;
+    &lt;value&gt;true&lt;/value&gt;
+  &lt;/property&gt;
+&lt;!--在HDFS上聚集的日志最多保存多长时间--&gt;
+  &lt;property&gt;
+    &lt;name&gt;yarn.log-aggregation.retain-seconds&lt;/name&gt;
+    &lt;value&gt;86400&lt;/value&gt;
+  &lt;/property&gt; 
+
+
+
+&lt;/configuration&gt;
+</code></pre></div>
+<h3 id="2-sparkmasterslave">2. 搭建Spark（master、slave相同操作）<a class="headerlink" href="#2-sparkmasterslave" title="Permanent link">&para;</a></h3>
+<h3 id="21-spark">2.1  安装spark<a class="headerlink" href="#21-spark" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cd /usr/loca/src/
+tar zxvf spark-2.0.2-bin-hadoop2.7.tgz
+mv spark-2.0.2-bin-hadoop2.7  /usr/local/spark-2.0.2
+</code></pre></div>
+<h3 id="22-spark">2.2 配置spark环境变量<a class="headerlink" href="#22-spark" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>vim /etc/profile
+</code></pre></div>
+<p>添加如下信息</p>
+<div class="highlight"><pre><span></span><code>######### spark ############
+export SPARK_HOME=/usr/local/spark-2.0.2
+export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
+</code></pre></div>
+<h4 id="23">2.3 刷新配置文件：<a class="headerlink" href="#23" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>source /etc/profile
+</code></pre></div>
+<h3 id="24-spark">2.4 修改spark配置文件<a class="headerlink" href="#24-spark" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cd /usr/local/spark-2.0.2/conf
+mv spark-env.sh.template spark-env.sh
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[root@spark-master conf]# ll
+总用量 36
+-rw-r--r--. 1  500  500  987 11月  8 09:58 docker.properties.template
+-rw-r--r--. 1  500  500 1105 11月  8 09:58 fairscheduler.xml.template
+-rw-r--r--. 1  500  500 2025 11月  8 09:58 log4j.properties.template
+-rw-r--r--. 1  500  500 7239 11月  8 09:58 metrics.properties.template
+-rw-r--r--. 1  500  500  912 12月 21 16:55 slaves
+-rw-r--r--. 1  500  500 1292 11月  8 09:58 spark-defaults.conf.template
+-rwxr-xr-x. 1 root root 3969 12月 21 15:50 spark-env.sh
+-rwxr-xr-x. 1  500  500 3861 11月  8 09:58 spark-env.sh.template
+</code></pre></div>
+<h4 id="241-sparkjdk">2.4.1 spark关联jdk<a class="headerlink" href="#241-sparkjdk" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>vim spark-env.sh
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>#!/usr/bin/env bash
+
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the &quot;License&quot;); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# This file is sourced when running various Spark programs.
+# Copy it as spark-env.sh and edit that to configure Spark for your site.
+
+# Options read when launching programs locally with
+# ./bin/run-example or ./bin/spark-submit
+# - HADOOP_CONF_DIR, to point Spark towards Hadoop configuration files
+# - SPARK_LOCAL_IP, to set the IP address Spark binds to on this node
+# - SPARK_PUBLIC_DNS, to set the public dns name of the driver program
+# - SPARK_CLASSPATH, default classpath entries to append
+
+# Options read by executors and drivers running inside the cluster
+# - SPARK_LOCAL_IP, to set the IP address Spark binds to on this node
+# - SPARK_PUBLIC_DNS, to set the public DNS name of the driver program
+# - SPARK_CLASSPATH, default classpath entries to append
+# - SPARK_LOCAL_DIRS, storage directories to use on this node for shuffle and RDD data
+# - MESOS_NATIVE_JAVA_LIBRARY, to point to your libmesos.so if you use Mesos
+
+# Options read in YARN client mode
+# - HADOOP_CONF_DIR, to point Spark towards Hadoop configuration files
+# - SPARK_EXECUTOR_INSTANCES, Number of executors to start (Default: 2)
+# - SPARK_EXECUTOR_CORES, Number of cores for the executors (Default: 1).
+# - SPARK_EXECUTOR_MEMORY, Memory per Executor (e.g. 1000M, 2G) (Default: 1G)
+# - SPARK_DRIVER_MEMORY, Memory for Driver (e.g. 1000M, 2G) (Default: 1G)
+
+# Options for the daemons used in the standalone deploy mode
+# - SPARK_MASTER_HOST, to bind the master to a different IP address or hostname
+# - SPARK_MASTER_PORT / SPARK_MASTER_WEBUI_PORT, to use non-default ports for the master
+# - SPARK_MASTER_OPTS, to set config properties only for the master (e.g. &quot;-Dx=y&quot;)
+# - SPARK_WORKER_CORES, to set the number of cores to use on this machine
+# - SPARK_WORKER_MEMORY, to set how much total memory workers have to give executors (e.g. 1000m, 2g)
+# - SPARK_WORKER_PORT / SPARK_WORKER_WEBUI_PORT, to use non-default ports for the worker
+# - SPARK_WORKER_INSTANCES, to set the number of worker processes per node
+# - SPARK_WORKER_DIR, to set the working directory of worker processes
+# - SPARK_WORKER_OPTS, to set config properties only for the worker (e.g. &quot;-Dx=y&quot;)
+# - SPARK_DAEMON_MEMORY, to allocate to the master, worker and history server themselves (default: 1g).
+# - SPARK_HISTORY_OPTS, to set config properties only for the history server (e.g. &quot;-Dx=y&quot;)
+# - SPARK_SHUFFLE_OPTS, to set config properties only for the external shuffle service (e.g. &quot;-Dx=y&quot;)
+# - SPARK_DAEMON_JAVA_OPTS, to set config properties for all daemons (e.g. &quot;-Dx=y&quot;)
+# - SPARK_PUBLIC_DNS, to set the public dns name of the master or workers
+
+# Generic options for the daemons used in the standalone deploy mode
+# - SPARK_CONF_DIR      Alternate conf dir. (Default: ${SPARK_HOME}/conf)
+# - SPARK_LOG_DIR       Where log files are stored.  (Default: ${SPARK_HOME}/logs)
+# - SPARK_PID_DIR       Where the pid file is stored. (Default: /tmp)
+# - SPARK_IDENT_STRING  A string representing this instance of spark. (Default: $USER)
+# - SPARK_NICENESS      The scheduling priority for daemons. (Default: 0)
+#java的环境变量
+export JAVA_HOME=/usr/local/jdk1.8.0_111
+#spark主节点的ip
+export SPARK_MASTER_IP=172.16.200.81
+#spark主节点的端口号
+export SPARK_MASTER_PORT=7077
+</code></pre></div>
+<h4 id="242-slaves">2.4.2 配置slaves<a class="headerlink" href="#242-slaves" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>vim slaves
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the &quot;License&quot;); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# A Spark Worker will be started on each of the machines listed below.
+172.16.200.81
+172.16.200.82
+172.16.200.83
+172.16.200.84
+</code></pre></div>
+<h3 id="3-scala">3. 安装scala<a class="headerlink" href="#3-scala" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cd /usr/loca/src/
+tar zxvf scala-2.12.1.tgz
+mv scala-2.12.1  /usr/local
+</code></pre></div>
+<h3 id="31-scalamaster">3.1 配置scala环境变量（只master安装）<a class="headerlink" href="#31-scalamaster" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>vim /etc/profile
+</code></pre></div>
+<p>添加如下信息</p>
+<div class="highlight"><pre><span></span><code>######### scala ##########
+export SCALA_HOME=/usr/local/scala-2.12.1
+export PATH=$PATH:$SCALA_HOME/bin
+</code></pre></div>
+<h4 id="32">3.2 刷新配置文件：<a class="headerlink" href="#32" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>source /etc/profile
+</code></pre></div>
+<h3 id="4">4. 启动程序<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<h4 id="41-hadoop">4.1 启动hadoop<a class="headerlink" href="#41-hadoop" title="Permanent link">&para;</a></h4>
+<h4 id="411-namenode">4.1.1 格式化namenode<a class="headerlink" href="#411-namenode" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>hadoop namenode -format
+</code></pre></div>
+<h4 id="412-masterhadoop">4.1.2 master启动hadoop<a class="headerlink" href="#412-masterhadoop" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>cd /usr/local/hadoop-2.7.3/sbin
+./start-all.sh
+</code></pre></div>
+<p>提示</p>
+<div class="highlight"><pre><span></span><code>start-all.sh                    //启动master和slaves
+stop-all.sh                    //停止master和slaves
+</code></pre></div>
+<p>查看进程 （master）</p>
+<div class="highlight"><pre><span></span><code>[root@spark-master sbin]# jps
+8961 NodeManager
+8327 DataNode
+8503 SecondaryNameNode
+8187 NameNode
+8670 ResourceManager
+9102 Jps
+[root@spark-master sbin]#
+</code></pre></div>
+<p>查看进程 （slave）</p>
+<div class="highlight"><pre><span></span><code>[root@spark-slave01 ~]# jps
+4289 NodeManager
+4439 Jps
+4175 DataNode
+[root@spark-slave01 ~]#
+</code></pre></div>
+<p>slave01、slve02、slave03显示相同</p>
+<h4 id="42-spark">4.2 启动spark<a class="headerlink" href="#42-spark" title="Permanent link">&para;</a></h4>
+<h4 id="412-masterhadoop_1">4.1.2 master启动hadoop<a class="headerlink" href="#412-masterhadoop_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>cd /usr/local/spark-2.0.2/sbin
+./start-all.sh
+</code></pre></div>
+<p>提示</p>
+<div class="highlight"><pre><span></span><code>start-all.sh                    //启动master和slaves
+stop-all.sh                    //停止master和slaves
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../kafka-cluster-construction/" class="md-footer__link md-footer__link--prev" aria-label="上一页: kafka集群搭建" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              kafka集群搭建
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../datax-synchronization-data-configuration/" class="md-footer__link md-footer__link--next" aria-label="下一页: DataX同步数据配置" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              DataX同步数据配置
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2013-2020 <a href="https://doc.carsonfan.com">Carson's Docs</a>, All Rights Reserved. <a href="http://www.beian.miit.gov.cn" target="_blank">京ICP备15063656号-3</a>
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.febc23d1.min.js"></script>
+      
+    
+  </body>
+</html>

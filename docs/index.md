@@ -1,17 +1,7 @@
-# Welcome to MkDocs
+# Welcome ～
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+嘿，来了就不要走了～ ，瞎看看吧，如发现文档有任何问题，那么记住这个坑，我应该不会改，因为我很懒。
 
-## Commands
+如果发现点击链接空白，或者是点击跳转的是其他文章，不要惊慌，那是我真的没写内容，随便做了个链接以防报错。
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+主页不写点什么总觉得空荡荡，想加点内容，但不会前端。想看啥在左侧点击吧，佛系运维一枚，也在学习日语和德语，会记录一些我觉得可以分享的内容，不定时更新，如长时间不更新，那么可能已经忘记这个站点的存在了 ～

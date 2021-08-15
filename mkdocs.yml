@@ -1,1 +1,163 @@
-site_name: My Docs
+site_name: 'Docs'
+site_url: 'https://docs.carsonfan.com'
+site_description: 'Docs'
+site_author: 'Carson'
+
+repo_name: 'Github Star'
+repo_url: 'https://github.com/iscarson'
+edit_uri: ''
+
+theme:
+    name: 'material'
+    # logo: 'img/logo.png'
+    # favicon: 'img/facio.ico'
+    language: 'zh'
+    highlightjs: true
+    feature:
+        tabs: true
+    hljs_languages:
+        - yaml
+        - django
+
+    palette:
+        primary: 'indigo'
+        accent: 'indigo'
+
+nav:
+    # - Home: index.md
+    - DevOps:
+        - 01 Nginx: 
+            - Openresty增加waf配置: DevOps/01 Nginx/Openresty adds WAF configuration.md
+        - 02 Redis: 
+            - Codis3.1 集群搭建（包含zookeeper集群）: DevOps/02 Redis/codis3.1-cluster-building-including-zookeeper-cluster.md
+        - 03 Elk : 
+            - ElasticSearch安装IK中文分词器: DevOps/03 Elk/elasticsearch-install-ik-chinese-word-breaker.md
+            - ELK集群搭建（ElasticSearch Logstash Kinaba）: DevOps/03 Elk/elk-cluster-building-elasticsearch-logstash-kinaba.md
+        - 04 Data : 
+            - kafka集群搭建 : DevOps/04 Data/kafka-cluster-construction.md
+            - 大数据平台搭建（Hadoop+Spark）: DevOps/04 Data/big-data-platform-building-hadoop+spark.md
+            - DataX同步数据配置: DevOps/04 Data/datax-synchronization-data-configuration.md
+        - 05 Ldap : DevOps/04 Data/kafka-cluster-construction.md
+        - 06 Monitor : 
+            - open-falcon v0.2 部署、小米开源监控部署: DevOps/06 Monitor/open-falcon-v0.2-deployment-millet-open-source-monitoring-deployment.md
+            - zabbix邮件报警脚本 : DevOps/06 Monitor/zabbix-email-alert-script.md
+        - 07 MySQL : 
+            - Mysql multi实现mysql双实例 : DevOps/07 MySQL/mysql-multi-implementation-of-double-instances-of-mysql.md
+        - 08 Cache : 
+            - 初始化Cache : DevOps/08 Cache/initialize-cache.md
+            - 部署Memcache，采用Supervisord管理 : DevOps/08 Cache/deploy-memcache-and-adopt-supervisor-management.md
+        - 09 Php :
+            - php安装bcmath扩展脚本 : DevOps/09 Php/php-install-bcmath-extension.md
+        - 10 Web :
+            - HTML基础 : DevOps/10 Web/html-basics.md
+        - 11 Network :
+            - 01 交换机的工作原理 : DevOps/11 Network/01 working principle of switch.md
+        - 12 Python :
+            - 01 初识Python、基本数据类型 : DevOps/12 Python/01 Initial understanding of Python and basic data types.md
+            - 02 Python运算符 : DevOps/12 Python/02 Python operators.md
+            - 03 条件语句与循环语句 : DevOps/12 Python/03 conditional statement and circular statement.md
+            - 04 基本数据类型-字符串（str） : DevOps/12 Python/04 basic data type string (STR).md
+            - 05 基本数据类型-整型（int）、布尔值（bool） : DevOps/12 Python/05 basic data type - int, bool.md
+            - 06 基本数据类型-列表（list） : DevOps/12 Python/06 basic data type list.md
+            - 07 基本数据类型-元祖（tuple）、字典（dict） : DevOps/12 Python/07 basic data type - tuple, Dict.md
+            - 08 基本数据类型-集合（set） : DevOps/12 Python/08 basic data type - set.md
+            - 09 Python函数 : DevOps/12 Python/09 Python functions.md
+            - 10 Python面向对象的程序设计 : DevOps/12 Python/10 Object oriented programming in Python.md
+            - 11 Python模块与包的导入 : DevOps/12 Python/11 Python module and package import.md
+            - 12 Python的字符编码 : DevOps/12 Python/12 character encoding in Python.md
+            - 13 pymysql模块 : DevOps/12 Python/13 pymysql module.md
+            - 14 Django基本命令 : DevOps/12 Python/14 Django basic command.md
+        - 13 Jenkins:
+            - Pipeline配置 : DevOps/13 Jenkins/Pipeline configuration.md
+        - 14 Vsftpd :
+            - Vsftpd配置参数: DevOps/14 Vsftpd/vsftpd configuration parameters.md
+        - 15 Kubernetes :
+            - 01 Kubernetes知识: DevOps/15 Kubernetes/01 Kubernetes knowledge.md
+            - 02 组件说明: DevOps/15 Kubernetes/02 Kubernetes component description.md
+            - 03 资源清单: DevOps/15 Kubernetes/03 Kubernetes resource list.md
+            - 04 集群安装: DevOps/15 Kubernetes/04 Kubernetes cluster installation.md
+            - 05 修改ipvs代理: DevOps/15 Kubernetes/05 Kubernetes change to ipvs proxy.md
+            - 06 资源控制器: DevOps/15 Kubernetes/06 Kubernetes resource controller.md
+            - 07 资源调度器: DevOps/15 Kubernetes/07 Kubernetes resource scheduler.md
+            - 08 安全: DevOps/15 Kubernetes/08 Kubernetes safety.md
+            - 09 存储: DevOps/15 Kubernetes/09 Kubernetes storage.md
+            - 10 服务发现: DevOps/15 Kubernetes/10 Kubernetes service discovery.md
+            - 11 Pod属性: DevOps/15 Kubernetes/11 Kubernetes pod properties.md
+            - 12 高可用: DevOps/15 Kubernetes/12 Kubernetes high availability.md
+            - 13 Helm: DevOps/15 Kubernetes/13 Kubernetes helm.md
+            - 14 Harbor: DevOps/15 Kubernetes/14 Kubernetes harbor.md
+            - 15 Kube问题集: DevOps/15 Kubernetes/15 Kubernetes kube problem set.md
+            - 16 其他: DevOps/15 Kubernetes/16 Kubernetes other.md
+        - 16 Gitlab : 
+            - Gitlab使用: DevOps/16 Gitlab/Git use.md
+            - Gitlab备份脚本: DevOps/16 Gitlab/Gitlab backup script.md
+        - 17 Golang : 
+            - 01 fmt.Printf使用: DevOps/17 Golang/01 fmt.Printf use.md
+            - 02 打包: DevOps/17 Golang/02 pack.md
+            - 03 函数:  DevOps/17 Golang/03 Gorang function.md
+            
+        - 99 Other : 
+            - Linux Ctrl C无效: DevOps/99 Other/Invalid Linux Ctrl C.md
+
+    - Japanese:
+        - 01 发音基础: Japanese/01 Fundamentals of pronunciation.md
+        - 02 我们去买蛋糕吧 : Japanese/02 Let's go and buy some cakes.md
+        - 03 喜欢喜欢好喜欢 : Japanese/03 like like like.md
+        - 04 买买买 : Japanese/04 buy buy buy.md
+        - 05 家人 : Japanese/05 family.md
+        - 06 几点的新干线 : Japanese/06 what time is the Shinkansen.md
+        - 07 想要想要好想要 : Japanese/07 want to want good want.md
+        - 08 想吃想吃好想吃 : Japanese/08 want to eat.md
+        - 09 我的梦想 : Japanese/09 my dream.md
+        - 10 朝五晚九开始啦 : Japanese/10 It's 10 days, five nights and nine nights.md
+        - 11 我 : Japanese/11 my.md
+            
+    # - German: faq/core.md
+    # - Help:
+    #     - Core 常见问题: faq/core.md
+
+    # - About:
+    #     - 贡献列表: about/contributor.md
+    #     - 更新说明: about/change_log.md
+    #     - 联系方式: about/contact.md
+
+markdown_extensions:
+    - admonition
+    - codehilite:
+        guess_lang: True
+        linenums: False
+    - toc:
+        permalink: True
+    - footnotes
+    - attr_list
+    - def_list
+    - tables
+    - abbr
+    - md_in_html
+    - pymdownx.extra
+    - pymdownx.arithmatex
+    - pymdownx.betterem:
+        smart_enable: all
+    - pymdownx.caret
+    - pymdownx.critic
+    - pymdownx.details
+    - pymdownx.emoji:
+        emoji_generator: !!python/name:pymdownx.emoji.to_png
+    - pymdownx.inlinehilite
+    - pymdownx.magiclink
+    - pymdownx.mark
+    - pymdownx.smartsymbols
+    - pymdownx.superfences
+    - pymdownx.tasklist
+    - pymdownx.tilde
+    - pymdownx.betterem
+    - pymdownx.superfences
+    - pymdownx.progressbar
+
+extra_css:
+    - css/extra.css
+
+copyright: Copyright &copy; 2013-2020 <a href="https://doc.carsonfan.com">Carson's Docs</a>, All Rights Reserved. <a href="http://www.beian.miit.gov.cn" target="_blank">京ICP备15063656号-3</a>
+# google_analytics: ['UA-147297392-6','docs.jumpserver.org']
+plugins:
+    - search

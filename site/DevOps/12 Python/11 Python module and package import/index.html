@@ -1,0 +1,2142 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Docs">
+      
+      
+      
+        <meta name="author" content="Carson">
+      
+      
+        <link rel="canonical" href="https://docs.carsonfan.com/DevOps/12%20Python/11%20Python%20module%20and%20package%20import/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
+    
+    
+      
+        <title>11 Python模块与包的导入 - Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f7f47774.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Docs" class="md-header__button md-logo" aria-label="Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              11 Python模块与包的导入
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/iscarson" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Github Star
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Docs" class="md-nav__button md-logo" aria-label="Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Docs
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/iscarson" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Github Star
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        DevOps
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="DevOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1" type="checkbox" id="__nav_1_1" >
+      
+      <label class="md-nav__link" for="__nav_1_1">
+        01 Nginx
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="01 Nginx" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          01 Nginx
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Nginx/Openresty%20adds%20WAF%20configuration/" class="md-nav__link">
+        Openresty增加waf配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
+      
+      <label class="md-nav__link" for="__nav_1_2">
+        02 Redis
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="02 Redis" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          02 Redis
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Redis/codis3.1-cluster-building-including-zookeeper-cluster/" class="md-nav__link">
+        Codis3.1 集群搭建（包含zookeeper集群）
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      <label class="md-nav__link" for="__nav_1_3">
+        03 Elk
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="03 Elk" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          03 Elk
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Elk/elasticsearch-install-ik-chinese-word-breaker/" class="md-nav__link">
+        ElasticSearch安装IK中文分词器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Elk/elk-cluster-building-elasticsearch-logstash-kinaba/" class="md-nav__link">
+        ELK集群搭建（ElasticSearch Logstash Kinaba）
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      <label class="md-nav__link" for="__nav_1_4">
+        04 Data
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="04 Data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          04 Data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/kafka-cluster-construction/" class="md-nav__link">
+        kafka集群搭建
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/big-data-platform-building-hadoop%2Bspark/" class="md-nav__link">
+        大数据平台搭建（Hadoop+Spark）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/datax-synchronization-data-configuration/" class="md-nav__link">
+        DataX同步数据配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/kafka-cluster-construction/" class="md-nav__link">
+        05 Ldap
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      <label class="md-nav__link" for="__nav_1_6">
+        06 Monitor
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="06 Monitor" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          06 Monitor
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20Monitor/open-falcon-v0.2-deployment-millet-open-source-monitoring-deployment/" class="md-nav__link">
+        open-falcon v0.2 部署、小米开源监控部署
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20Monitor/zabbix-email-alert-script/" class="md-nav__link">
+        zabbix邮件报警脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      <label class="md-nav__link" for="__nav_1_7">
+        07 MySQL
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="07 MySQL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          07 MySQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07%20MySQL/mysql-multi-implementation-of-double-instances-of-mysql/" class="md-nav__link">
+        Mysql multi实现mysql双实例
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      <label class="md-nav__link" for="__nav_1_8">
+        08 Cache
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="08 Cache" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          08 Cache
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08%20Cache/initialize-cache/" class="md-nav__link">
+        初始化Cache
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08%20Cache/deploy-memcache-and-adopt-supervisor-management/" class="md-nav__link">
+        部署Memcache，采用Supervisord管理
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_9" type="checkbox" id="__nav_1_9" >
+      
+      <label class="md-nav__link" for="__nav_1_9">
+        09 Php
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="09 Php" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          09 Php
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09%20Php/php-install-bcmath-extension/" class="md-nav__link">
+        php安装bcmath扩展脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_10" type="checkbox" id="__nav_1_10" >
+      
+      <label class="md-nav__link" for="__nav_1_10">
+        10 Web
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="10 Web" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_10">
+          <span class="md-nav__icon md-icon"></span>
+          10 Web
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10%20Web/html-basics/" class="md-nav__link">
+        HTML基础
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_11" type="checkbox" id="__nav_1_11" >
+      
+      <label class="md-nav__link" for="__nav_1_11">
+        11 Network
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="11 Network" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_11">
+          <span class="md-nav__icon md-icon"></span>
+          11 Network
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11%20Network/01%20working%20principle%20of%20switch/" class="md-nav__link">
+        01 交换机的工作原理
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_12" type="checkbox" id="__nav_1_12" checked>
+      
+      <label class="md-nav__link" for="__nav_1_12">
+        12 Python
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="12 Python" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_12">
+          <span class="md-nav__icon md-icon"></span>
+          12 Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01%20Initial%20understanding%20of%20Python%20and%20basic%20data%20types/" class="md-nav__link">
+        01 初识Python、基本数据类型
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02%20Python%20operators/" class="md-nav__link">
+        02 Python运算符
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03%20conditional%20statement%20and%20circular%20statement/" class="md-nav__link">
+        03 条件语句与循环语句
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04%20basic%20data%20type%20string%20%28STR%29/" class="md-nav__link">
+        04 基本数据类型-字符串（str）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05%20basic%20data%20type%20-%20int%2C%20bool/" class="md-nav__link">
+        05 基本数据类型-整型（int）、布尔值（bool）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06%20basic%20data%20type%20list/" class="md-nav__link">
+        06 基本数据类型-列表（list）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07%20basic%20data%20type%20-%20tuple%2C%20Dict/" class="md-nav__link">
+        07 基本数据类型-元祖（tuple）、字典（dict）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08%20basic%20data%20type%20-%20set/" class="md-nav__link">
+        08 基本数据类型-集合（set）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09%20Python%20functions/" class="md-nav__link">
+        09 Python函数
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10%20Object%20oriented%20programming%20in%20Python/" class="md-nav__link">
+        10 Python面向对象的程序设计
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          11 Python模块与包的导入
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        11 Python模块与包的导入
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一、模块导入
+  </a>
+  
+    <nav class="md-nav" aria-label="一、模块导入">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 定义
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 作用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-import" class="md-nav__link">
+    3. import
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-fromimport" class="md-nav__link">
+    4. From…import
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12%20character%20encoding%20in%20Python/" class="md-nav__link">
+        12 Python的字符编码
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13%20pymysql%20module/" class="md-nav__link">
+        13 pymysql模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14%20Django%20basic%20command/" class="md-nav__link">
+        14 Django基本命令
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_13" type="checkbox" id="__nav_1_13" >
+      
+      <label class="md-nav__link" for="__nav_1_13">
+        13 Jenkins
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="13 Jenkins" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_13">
+          <span class="md-nav__icon md-icon"></span>
+          13 Jenkins
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../13%20Jenkins/Pipeline%20configuration/" class="md-nav__link">
+        Pipeline配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_14" type="checkbox" id="__nav_1_14" >
+      
+      <label class="md-nav__link" for="__nav_1_14">
+        14 Vsftpd
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="14 Vsftpd" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_14">
+          <span class="md-nav__icon md-icon"></span>
+          14 Vsftpd
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../14%20Vsftpd/vsftpd%20configuration%20parameters/" class="md-nav__link">
+        Vsftpd配置参数
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_15" type="checkbox" id="__nav_1_15" >
+      
+      <label class="md-nav__link" for="__nav_1_15">
+        15 Kubernetes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="15 Kubernetes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_15">
+          <span class="md-nav__icon md-icon"></span>
+          15 Kubernetes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/01%20Kubernetes%20knowledge/" class="md-nav__link">
+        01 Kubernetes知识
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/02%20Kubernetes%20component%20description/" class="md-nav__link">
+        02 组件说明
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/03%20Kubernetes%20resource%20list/" class="md-nav__link">
+        03 资源清单
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/04%20Kubernetes%20cluster%20installation/" class="md-nav__link">
+        04 集群安装
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/05%20Kubernetes%20change%20to%20ipvs%20proxy/" class="md-nav__link">
+        05 修改ipvs代理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/06%20Kubernetes%20resource%20controller/" class="md-nav__link">
+        06 资源控制器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/07%20Kubernetes%20resource%20scheduler/" class="md-nav__link">
+        07 资源调度器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/08%20Kubernetes%20safety/" class="md-nav__link">
+        08 安全
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/09%20Kubernetes%20storage/" class="md-nav__link">
+        09 存储
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/10%20Kubernetes%20service%20discovery/" class="md-nav__link">
+        10 服务发现
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/11%20Kubernetes%20pod%20properties/" class="md-nav__link">
+        11 Pod属性
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/12%20Kubernetes%20high%20availability/" class="md-nav__link">
+        12 高可用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/13%20Kubernetes%20helm/" class="md-nav__link">
+        13 Helm
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/14%20Kubernetes%20harbor/" class="md-nav__link">
+        14 Harbor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/15%20Kubernetes%20kube%20problem%20set/" class="md-nav__link">
+        15 Kube问题集
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../15%20Kubernetes/16%20Kubernetes%20other/" class="md-nav__link">
+        16 其他
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_16" type="checkbox" id="__nav_1_16" >
+      
+      <label class="md-nav__link" for="__nav_1_16">
+        16 Gitlab
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="16 Gitlab" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_16">
+          <span class="md-nav__icon md-icon"></span>
+          16 Gitlab
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../16%20Gitlab/Git%20use/" class="md-nav__link">
+        Gitlab使用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../16%20Gitlab/Gitlab%20backup%20script/" class="md-nav__link">
+        Gitlab备份脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_17" type="checkbox" id="__nav_1_17" >
+      
+      <label class="md-nav__link" for="__nav_1_17">
+        17 Golang
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="17 Golang" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_17">
+          <span class="md-nav__icon md-icon"></span>
+          17 Golang
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/01%20fmt.Printf%20use/" class="md-nav__link">
+        01 fmt.Printf使用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/02%20pack/" class="md-nav__link">
+        02 打包
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/03%20Gorang%20function/" class="md-nav__link">
+        03 函数
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_18" type="checkbox" id="__nav_1_18" >
+      
+      <label class="md-nav__link" for="__nav_1_18">
+        99 Other
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="99 Other" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_18">
+          <span class="md-nav__icon md-icon"></span>
+          99 Other
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../99%20Other/Invalid%20Linux%20Ctrl%20C/" class="md-nav__link">
+        Linux Ctrl C无效
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Japanese
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Japanese" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Japanese
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/01%20Fundamentals%20of%20pronunciation/" class="md-nav__link">
+        01 发音基础
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/02%20Let%27s%20go%20and%20buy%20some%20cakes/" class="md-nav__link">
+        02 我们去买蛋糕吧
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/03%20like%20like%20like/" class="md-nav__link">
+        03 喜欢喜欢好喜欢
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/04%20buy%20buy%20buy/" class="md-nav__link">
+        04 买买买
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/05%20family/" class="md-nav__link">
+        05 家人
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/06%20what%20time%20is%20the%20Shinkansen/" class="md-nav__link">
+        06 几点的新干线
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/07%20want%20to%20want%20good%20want/" class="md-nav__link">
+        07 想要想要好想要
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/08%20want%20to%20eat/" class="md-nav__link">
+        08 想吃想吃好想吃
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/09%20my%20dream/" class="md-nav__link">
+        09 我的梦想
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/10%20It%27s%2010%20days%2C%20five%20nights%20and%20nine%20nights/" class="md-nav__link">
+        10 朝五晚九开始啦
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/11%20my/" class="md-nav__link">
+        11 我
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一、模块导入
+  </a>
+  
+    <nav class="md-nav" aria-label="一、模块导入">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 定义
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 作用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-import" class="md-nav__link">
+    3. import
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-fromimport" class="md-nav__link">
+    4. From…import
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>11 Python模块与包的导入</h1>
+                
+                <h2 id="_1">一、模块导入<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 定义<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。</p>
+<p>模块让你能够有逻辑地组织你的 Python 代码段。</p>
+<p>把相关的代码分配到一个模块里能让你的代码更好用，更易懂。 </p>
+<p>模块能定义函数，类和变量，模块里也能包含可执行的代码。</p>
+<p>包括：内置模块，自定义模块，第三方模块；</p>
+<h3 id="2">2. 作用<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>最大的好处是大大提高了代码的可维护性。其次，编写代码不必从零开始。当一个模块编写完毕，就可以被其他地方引用。我们在编写程序的时候，也经常引用其他模块，包括Python内置的模块和来自第三方的模块。</p>
+<p>使用模块还可以避免函数名和变量名冲突。相同名字的函数和变量完全可以分别存在不同的模块中，因此，我们自己在编写模块时，不必考虑名字会与其他模块冲突。但是也要注意，尽量不要与内置函数名字冲突。</p>
+<h3 id="3-import">3. import<a class="headerlink" href="#3-import" title="Permanent link">&para;</a></h3>
+<p>模块定义好后，我们可以使用 import 语句来引入模块，语法如下：</p>
+<div class="highlight"><pre><span></span><code>import module1[, module2[,... moduleN]
+</code></pre></div>
+<p><strong>例：</strong></p>
+<div class="highlight"><pre><span></span><code>#spam.py
+print(&#39;from the spam.py&#39;)
+
+money=1000
+
+def read1():
+    print(&#39;spam-&gt;read1-&gt;money&#39;,money)
+
+def read2():
+    print(&#39;spam-&gt;read2 calling read&#39;)
+    read1()
+
+def change():
+    global money
+    money=0
+</code></pre></div>
+<p><strong>导入模块</strong></p>
+<div class="highlight"><pre><span></span><code>import spam #只在第一次导入时才执行spam.py内代码,此处的显式效果是只打印一次&#39;from the spam.py&#39;,当然其他的顶级代码也都被执行了,只不过没有显示效果.
+执行结果：
+ from the spam.py
+</code></pre></div>
+<p>**注：**模块可以包含可执行的语句和函数的定义，这些语句的目的是初始化模块，它们只在模块名第一次遇到导入import语句时才执行（import语句是可以在程序中的任意位置使用的,且针对同一个模块很import多次,为了防止你重复导入，python的优化手段是：第一次导入后就将模块名加载到内存了，后续的import语句仅是对已经加载大内存中的模块对象增加了一次引用，不会重新执行模块内的语句）</p>
+<p>import导入模块干的事：
+1.产生新的名称空间
+2.以新建的名称空间为全局名称空间，执行文件的代码
+3.拿到一个模块名spam，指向spam.py产生的名称空间</p>
+<ul>
+<li>测试一:money与spam.money不冲突</li>
+</ul>
+<div class="highlight"><pre><span></span><code>#测试一:money与spam.money不冲突
+#test.py
+import spam 
+money=10
+print(spam.money)
+
+&#39;&#39;&#39;
+执行结果：
+from the spam.py
+1000
+&#39;&#39;&#39;
+</code></pre></div>
+<ul>
+<li>测试二：read1与spam.read1不冲突</li>
+</ul>
+<div class="highlight"><pre><span></span><code>#测试二：read1与spam.read1不冲突
+#test.py
+import spam
+def read1():
+    print(&#39;========&#39;)
+spam.read1()
+
+&#39;&#39;&#39;
+执行结果:
+from the spam.py
+spam-&gt;read1-&gt;money 1000
+&#39;&#39;&#39;
+</code></pre></div>
+<ul>
+<li>测试三：执行spam.change()操作的全局变量money仍然是spam中的money</li>
+</ul>
+<div class="highlight"><pre><span></span><code>#测试三：执行spam.change()操作的全局变量money仍然是spam中的
+#test.py
+import spam
+money=1
+spam.change()
+print(money)
+
+&#39;&#39;&#39;
+执行结果：
+from the spam.py
+1
+&#39;&#39;&#39;
+</code></pre></div>
+<ul>
+<li>as，为模块名起别名</li>
+</ul>
+<div class="highlight"><pre><span></span><code> import spam as sm  #sm为spam的别名
+ print(sm.money)
+</code></pre></div>
+<p><strong>例：</strong></p>
+<p>为已经导入的模块起别名的方式对编写可扩展的代码很有用，假设有两个模块xmlreader.py和csvreader.py，它们都定义了函数read_data(filename):用来从文件中读取一些数据，但采用不同的输入格式。可以编写代码来选择性地挑选读取模块，例如</p>
+<div class="highlight"><pre><span></span><code>if file_format == &#39;xml&#39;:
+     import xmlreader as reader
+elif file_format == &#39;csv&#39;:
+    import csvreader as reader
+data=reader.read_date(filename)
+</code></pre></div>
+<p>在一行导入多个模块</p>
+<div class="highlight"><pre><span></span><code>import sys,os,re
+</code></pre></div>
+<h3 id="4-fromimport">4. From…import<a class="headerlink" href="#4-fromimport" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>from modname import name1[, name2[, ... nameN]]
+</code></pre></div>
+<p>要导入模块 fib 的 fibonacci 函数，使用如下语句：</p>
+<div class="highlight"><pre><span></span><code>from fib import fibonacci
+</code></pre></div>
+<p>这个声明不会把整个 fib 模块导入到当前的命名空间中，它只会将 fib 里的 fibonacci 单个引入到执行这个声明的模块的全局符号表。</p>
+<p>from... import..导入模块干的事：</p>
+<p>1.产生新的名称空间
+2.以新建的名称空间为全局名称空间，执行文件的代码
+3.直接拿到就是spam.py产生的名称空间中名字</p>
+<div class="highlight"><pre><span></span><code>#测试一：导入的函数read1，执行时仍然回到spam.py中寻找全局变量money
+#test.py
+from spam import read1
+money=1000
+read1()
+&#39;&#39;&#39;
+执行结果:
+from the spam.py
+spam-&gt;read1-&gt;money 1000
+&#39;&#39;&#39;
+
+#测试二:导入的函数read2，执行时需要调用read1(),仍然回到spam.py中找read1()
+#test.py
+from spam import read2
+def read1():
+    print(&#39;==========&#39;)
+read2()
+
+&#39;&#39;&#39;
+执行结果:
+from the spam.py
+spam-&gt;read2 calling read
+spam-&gt;read1-&gt;money 1000
+&#39;&#39;&#39;
+</code></pre></div>
+<p>但如果当前有重名read1或者read2，那么会有覆盖效果。</p>
+<div class="highlight"><pre><span></span><code>#测试三:导入的函数read1，被当前位置定义的read1覆盖掉了
+#test.py
+from spam import read1
+def read1():
+    print(&#39;==========&#39;)
+read1()
+&#39;&#39;&#39;
+执行结果:
+from the spam.py
+==========
+&#39;&#39;&#39;
+</code></pre></div>
+<p>需要特别强调的一点是：python中的变量赋值不是一种存储操作，而只是一种绑定关系，如下：</p>
+<div class="highlight"><pre><span></span><code>from spam import money,read1
+money=100 #将当前位置的名字money绑定到了100
+print(money) #打印当前的名字
+read1() #读取spam.py中的名字money,仍然为1000
+
+&#39;&#39;&#39;
+from the spam.py
+100
+spam-&gt;read1-&gt;money 1000
+&#39;&#39;&#39;
+</code></pre></div>
+<p>from ... import ...
+优点:方便，不用加前缀
+缺点：容易跟当前文件的名称空间冲突</p>
+<ul>
+<li>from ... import...也支持as和导入多模块</li>
+</ul>
+<p><div class="highlight"><pre><span></span><code>from spam import read1 as read
+
+from spam import (read1,
+                  read2,
+                  money)
+ ```
+
+* from spam import *
+把spam中所有的不是以下划线(_)开头的名字都导入到当前位置，大部分情况下我们的python程序不应该使用这种导入方式，因为*你不知道你导入什么名字，很有可能会覆盖掉你之前已经定义的名字。而且可读性极其的差，在交互式环境中导入时没有问题。 
+</code></pre></div>
+from spam import *   ## 将模块spam中所有的名字都导入到当前名称空间
+print(money)
+print(read1)
+print(read2)
+print(change)</p>
+<p>'''
+执行结果:
+from the spam.py
+1000
+<function read1 at 0x1012e8158>
+<function read2 at 0x1012e81e0>
+<function change at 0x1012e8268>
+'''
+<div class="highlight"><pre><span></span><code>* __all__来控制*（用来发布新版本）
+在spam.py中新增一行
+</code></pre></div>
+<strong>all</strong>=['money','read1'] spam import *就这能导入列表中规定的两个名字
+<div class="highlight"><pre><span></span><code>* __name__
+spam.py当做脚本执行，__name__=&#39;__main__&#39;
+spam.py当做模块导入，__name__=模块名
+
+作用：用来控制.py文件在不同的应用场景下执行不同的逻辑
+</code></pre></div>
+.py</p>
+<p>def fib(n):    # write Fibonacci series up to n
+    a, b = 0, 1
+    while b &lt; n:
+        print(b, end=' ')
+        a, b = b, a+b
+    print()</p>
+<p>def fib2(n):   # return Fibonacci series up to n
+    result = []
+    a, b = 0, 1
+    while b &lt; n:
+        result.append(b)
+        a, b = b, a+b
+    return result</p>
+<p>if <strong>name</strong> == "<strong>main</strong>":
+    import sys
+    fib(int(sys.argv[1]))
+<div class="highlight"><pre><span></span><code>执行
+</code></pre></div>
+fib.py <arguments>
+python fib.py 50 
+<div class="highlight"><pre><span></span><code>### 5.模块的搜索路径
+
+模块的查找顺序是：内存中已经加载的模块-&gt;内置模块-&gt;sys.path路径中包含的模块
+
+python解释器在启动时会自动加载一些模块，可以使用sys.modules查看，在第一次导入某个模块时（比如spam），会先检查该模块是否已经被加载到内存中（当前执行文件的名称空间对应的内存），如果有则直接引用
+
+如果没有，解释器则会查找同名的内建模块，如果还没有找到就从sys.path给出的目录列表中依次寻找spam.py文件。
+
+特别注意的是：自定义的模块名不应该与系统内置模块重名。
+
+
+
+在初始化后，python程序可以修改sys.path,路径放到前面的优先于标准库被加载。
+
+
+
+**注意：**搜索时按照sys.path中从左到右的顺序查找，位于前的优先被查找，sys.path中还可能包含.zip归档文件和.egg文件，python会把.zip归档文件当成一个目录去处理，
+</code></pre></div>
+module.zip foo.py bar.py</p>
+<p>import sys
+sys.path.append('module.zip')
+import foo,bar</p>
+<p>sys.path.append('module.zip/lib/python')
+<div class="highlight"><pre><span></span><code>**注意：**windows下的路径不加r开头，会语法错误
+</code></pre></div>
+windows下的路径不加r开头，会语法错误
+sys.path.insert(0,r'C:\Users\Administrator\PycharmProjects\a')
+<div class="highlight"><pre><span></span><code>## 二、包的导入
+### 1. 定义
+包是一种通过使用‘.模块名’来组织python模块名称空间的方式。
+
+无论是import形式还是from...import形式，凡是在导入语句中（而不是在使用时）遇到带点的，都要第一时间提高警觉：这是关于包才有的导入语法。.的左边必须是包；
+
+包是一个分层次的文件目录结构，它定义了一个由模块及子包，和子包下的子包等组成的 Python 的应用环境。简单来说，包就是文件夹，但该文件夹下必须存在 __init__.py 文件, 该文件的内容可以为空。__int__.py用于标识当前文件夹是一个包。
+
+包是由一系列模块组成的集合。模块是处理某一类问题的函数和类的集合。
+
+**例：**
+</code></pre></div>
+glance/                   package</p>
+<p>├── <strong>init</strong>.py      the glance package</p>
+<p>├── api                  for api</p>
+<p>│   ├── <strong>init</strong>.py</p>
+<p>│   ├── policy.py</p>
+<p>│   └── versions.py</p>
+<p>├── cmd                for cmd</p>
+<p>│   ├── <strong>init</strong>.py</p>
+<p>│   └── manage.py</p>
+<p>└── db                  for db</p>
+<div class="codehilite"><pre><span></span><code>├── __init__.py
+
+└── models.py
+</code></pre></div>
+
+<p><code>文件内容</code></p>
+<p>.py
+def get():
+    print('from policy.py')</p>
+<p>.py
+def create_resource(conf):
+    print('from version.py: ',conf)</p>
+<p>.py
+def main():
+    print('from manage.py')</p>
+<p>.py
+def register_models(engine):
+    print('from models.py: ',engine)
+<div class="highlight"><pre><span></span><code>### 2. import
+在使用一个模块中的函数或类之前，首先要导入该模块。模块的导入使用import语句。
+
+调用模块的函数或类时，需要以模块名作为前缀。
+
+import导入文件时，产生名称空间中的名字来源于文件，import 包，产生的名称空间的名字同样来源于文件，即包下的__init__.py，导入包本质就是在导入该文件
+
+**例：**
+在与包glance同级别的文件中测试
+</code></pre></div>
+import glance.db.models
+glance.db.models.register_models('mysql') 
+<div class="highlight"><pre><span></span><code>凡是在导入时带点的，点的左边都必须是一个包。
+
+
+
+### 3.from ... import ...
+如果不想在程序中使用前缀符，可以使用from…import…语句将模块导入。
+
+需要注意的是from后import导入的模块，必须是明确的一个不能带点，否则会有语法错误，如：from a import b.c是错误语法
+
+**例：**
+
+在与包glance同级别的文件中测试 
+</code></pre></div>
+from glance.db import models
+models.register_models('mysql')</p>
+<p>from glance.db.models import register_models
+register_models('mysql')
+<div class="highlight"><pre><span></span><code>执行的文件的当前路径就是sys.path
+</code></pre></div>
+import sys
+print(sys.path)
+<div class="highlight"><pre><span></span><code>**注意：**
+
+1.关于包相关的导入语句也分为import和from ... import ...两种，但是无论哪种，无论在什么位置，在导入时都必须遵循一个原则：凡是在导入时带点的，点的左边都必须是一个包，否则非法。可以带有一连串的点，如item.subitem.subsubitem,但都必须遵循这个原则。
+
+2.对于导入后，在使用时就没有这种限制了，点的左边可以是包,模块，函数，类(它们都可以用点的方式调用自己的属性)。
+
+3.对比import item 和from item import name的应用场景：
+如果我们想直接使用name那必须使用后者。
+
+
+
+### 4. __init\__.py文件
+
+不管是哪种方式，只要是第一次导入包或者是包的任何其他部分，都会依次执行包下的__init__.py文件(我们可以在每个包的文件内都打印一行内容来验证一下)，这个文件可以为空，但是也可以存放一些初始化包的代码。
+
+
+
+### 5.from glance.api import *
+
+从包api中导入所有，实际上该语句只会导入包api下__init__.py文件中定义的名字，我们可以在这个文件中定义__all___:
+</code></pre></div>
+.py中定义
+x=10</p>
+<p>def func():
+    print('from api.__init.py')</p>
+<p><strong>all</strong>=['x','func','policy']
+<div class="highlight"><pre><span></span><code>此时我们在于glance同级的文件中执行from glance.api import *就导入__all__中的内容（versions仍然不能导入）。
+
+
+
+### 6.绝对导入和相对导入
+
+最顶级包glance是写给别人用的，然后在glance包内部也会有彼此之间互相导入的需求，这时候就有绝对导入和相对导入两种方式：
+
+绝对导入：以glance作为起始
+
+相对导入：用.或者..的方式最为起始（只能在一个包中使用，不能用于不同目录内）
+
+例：我们在glance/api/version.py中想要导入glance/cmd/manage.py
+</code></pre></div>
+在glance/api/version.py</p>
+<p>from glance.cmd import manage
+manage.main()</p>
+<p>from ..cmd import manage
+manage.main()
+<div class="highlight"><pre><span></span><code>测试结果：注意一定要在于glance同级的文件中测试
+</code></pre></div>
+from glance.api import versions 
+<div class="highlight"><pre><span></span><code>注意：可以用import导入内置或者第三方模块（已经在sys.path中），但是要绝对避免使用import来导入自定义包的子模块(没有在sys.path中)，应该使用from... import ...的绝对或者相对导入,且包的相对导入只能用from的形式。
+
+
+
+### 7.单独导入包
+单独导入包名称时不会导入包中所有包含的所有子模块，如
+</code></pre></div>
+.py中
+import glance
+glance.cmd.manage.main()</p>
+<p>'''
+执行结果：
+AttributeError: module 'glance' has no attribute 'cmd'</p>
+<p>'''
+<div class="highlight"><pre><span></span><code>解决方法：
+</code></pre></div>
+.py
+from . import cmd</p>
+<p>.py
+from . import manage
+<div class="highlight"><pre><span></span><code>执行：
+</code></pre></div>
+.py中
+import glance
+glance.cmd.manage.main()
+```</p>
+<p>千万别问：__all__不能解决吗，__all__是用于控制from...import *</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../10%20Object%20oriented%20programming%20in%20Python/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 10 Python面向对象的程序设计" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              10 Python面向对象的程序设计
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../12%20character%20encoding%20in%20Python/" class="md-footer__link md-footer__link--next" aria-label="下一页: 12 Python的字符编码" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              12 Python的字符编码
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2013-2020 <a href="https://doc.carsonfan.com">Carson's Docs</a>, All Rights Reserved. <a href="http://www.beian.miit.gov.cn" target="_blank">京ICP备15063656号-3</a>
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.febc23d1.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1899 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Docs">
+      
+      
+      
+        <meta name="author" content="Carson">
+      
+      
+        <link rel="canonical" href="https://docs.carsonfan.com/DevOps/15%20Kubernetes/08%20Kubernetes%20safety/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
+    
+    
+      
+        <title>08 安全 - Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f7f47774.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Docs" class="md-header__button md-logo" aria-label="Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              08 安全
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/iscarson" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Github Star
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Docs" class="md-nav__button md-logo" aria-label="Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Docs
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/iscarson" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Github Star
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        DevOps
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="DevOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_1" type="checkbox" id="__nav_1_1" >
+      
+      <label class="md-nav__link" for="__nav_1_1">
+        01 Nginx
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="01 Nginx" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          01 Nginx
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01%20Nginx/Openresty%20adds%20WAF%20configuration/" class="md-nav__link">
+        Openresty增加waf配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_2" type="checkbox" id="__nav_1_2" >
+      
+      <label class="md-nav__link" for="__nav_1_2">
+        02 Redis
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="02 Redis" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          02 Redis
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Redis/codis3.1-cluster-building-including-zookeeper-cluster/" class="md-nav__link">
+        Codis3.1 集群搭建（包含zookeeper集群）
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      <label class="md-nav__link" for="__nav_1_3">
+        03 Elk
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="03 Elk" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          03 Elk
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Elk/elasticsearch-install-ik-chinese-word-breaker/" class="md-nav__link">
+        ElasticSearch安装IK中文分词器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Elk/elk-cluster-building-elasticsearch-logstash-kinaba/" class="md-nav__link">
+        ELK集群搭建（ElasticSearch Logstash Kinaba）
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      <label class="md-nav__link" for="__nav_1_4">
+        04 Data
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="04 Data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          04 Data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/kafka-cluster-construction/" class="md-nav__link">
+        kafka集群搭建
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/big-data-platform-building-hadoop%2Bspark/" class="md-nav__link">
+        大数据平台搭建（Hadoop+Spark）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/datax-synchronization-data-configuration/" class="md-nav__link">
+        DataX同步数据配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20Data/kafka-cluster-construction/" class="md-nav__link">
+        05 Ldap
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      <label class="md-nav__link" for="__nav_1_6">
+        06 Monitor
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="06 Monitor" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          06 Monitor
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20Monitor/open-falcon-v0.2-deployment-millet-open-source-monitoring-deployment/" class="md-nav__link">
+        open-falcon v0.2 部署、小米开源监控部署
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20Monitor/zabbix-email-alert-script/" class="md-nav__link">
+        zabbix邮件报警脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      <label class="md-nav__link" for="__nav_1_7">
+        07 MySQL
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="07 MySQL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          07 MySQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../07%20MySQL/mysql-multi-implementation-of-double-instances-of-mysql/" class="md-nav__link">
+        Mysql multi实现mysql双实例
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      <label class="md-nav__link" for="__nav_1_8">
+        08 Cache
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="08 Cache" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          08 Cache
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08%20Cache/initialize-cache/" class="md-nav__link">
+        初始化Cache
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../08%20Cache/deploy-memcache-and-adopt-supervisor-management/" class="md-nav__link">
+        部署Memcache，采用Supervisord管理
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_9" type="checkbox" id="__nav_1_9" >
+      
+      <label class="md-nav__link" for="__nav_1_9">
+        09 Php
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="09 Php" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          09 Php
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../09%20Php/php-install-bcmath-extension/" class="md-nav__link">
+        php安装bcmath扩展脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_10" type="checkbox" id="__nav_1_10" >
+      
+      <label class="md-nav__link" for="__nav_1_10">
+        10 Web
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="10 Web" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_10">
+          <span class="md-nav__icon md-icon"></span>
+          10 Web
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../10%20Web/html-basics/" class="md-nav__link">
+        HTML基础
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_11" type="checkbox" id="__nav_1_11" >
+      
+      <label class="md-nav__link" for="__nav_1_11">
+        11 Network
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="11 Network" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_11">
+          <span class="md-nav__icon md-icon"></span>
+          11 Network
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../11%20Network/01%20working%20principle%20of%20switch/" class="md-nav__link">
+        01 交换机的工作原理
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_12" type="checkbox" id="__nav_1_12" >
+      
+      <label class="md-nav__link" for="__nav_1_12">
+        12 Python
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="12 Python" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_12">
+          <span class="md-nav__icon md-icon"></span>
+          12 Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/01%20Initial%20understanding%20of%20Python%20and%20basic%20data%20types/" class="md-nav__link">
+        01 初识Python、基本数据类型
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/02%20Python%20operators/" class="md-nav__link">
+        02 Python运算符
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/03%20conditional%20statement%20and%20circular%20statement/" class="md-nav__link">
+        03 条件语句与循环语句
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/04%20basic%20data%20type%20string%20%28STR%29/" class="md-nav__link">
+        04 基本数据类型-字符串（str）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/05%20basic%20data%20type%20-%20int%2C%20bool/" class="md-nav__link">
+        05 基本数据类型-整型（int）、布尔值（bool）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/06%20basic%20data%20type%20list/" class="md-nav__link">
+        06 基本数据类型-列表（list）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/07%20basic%20data%20type%20-%20tuple%2C%20Dict/" class="md-nav__link">
+        07 基本数据类型-元祖（tuple）、字典（dict）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/08%20basic%20data%20type%20-%20set/" class="md-nav__link">
+        08 基本数据类型-集合（set）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/09%20Python%20functions/" class="md-nav__link">
+        09 Python函数
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/10%20Object%20oriented%20programming%20in%20Python/" class="md-nav__link">
+        10 Python面向对象的程序设计
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/11%20Python%20module%20and%20package%20import/" class="md-nav__link">
+        11 Python模块与包的导入
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/12%20character%20encoding%20in%20Python/" class="md-nav__link">
+        12 Python的字符编码
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/13%20pymysql%20module/" class="md-nav__link">
+        13 pymysql模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../12%20Python/14%20Django%20basic%20command/" class="md-nav__link">
+        14 Django基本命令
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_13" type="checkbox" id="__nav_1_13" >
+      
+      <label class="md-nav__link" for="__nav_1_13">
+        13 Jenkins
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="13 Jenkins" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_13">
+          <span class="md-nav__icon md-icon"></span>
+          13 Jenkins
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../13%20Jenkins/Pipeline%20configuration/" class="md-nav__link">
+        Pipeline配置
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_14" type="checkbox" id="__nav_1_14" >
+      
+      <label class="md-nav__link" for="__nav_1_14">
+        14 Vsftpd
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="14 Vsftpd" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_14">
+          <span class="md-nav__icon md-icon"></span>
+          14 Vsftpd
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../14%20Vsftpd/vsftpd%20configuration%20parameters/" class="md-nav__link">
+        Vsftpd配置参数
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_15" type="checkbox" id="__nav_1_15" checked>
+      
+      <label class="md-nav__link" for="__nav_1_15">
+        15 Kubernetes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="15 Kubernetes" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_15">
+          <span class="md-nav__icon md-icon"></span>
+          15 Kubernetes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01%20Kubernetes%20knowledge/" class="md-nav__link">
+        01 Kubernetes知识
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02%20Kubernetes%20component%20description/" class="md-nav__link">
+        02 组件说明
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03%20Kubernetes%20resource%20list/" class="md-nav__link">
+        03 资源清单
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04%20Kubernetes%20cluster%20installation/" class="md-nav__link">
+        04 集群安装
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05%20Kubernetes%20change%20to%20ipvs%20proxy/" class="md-nav__link">
+        05 修改ipvs代理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06%20Kubernetes%20resource%20controller/" class="md-nav__link">
+        06 资源控制器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07%20Kubernetes%20resource%20scheduler/" class="md-nav__link">
+        07 资源调度器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        08 安全
+      </a>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09%20Kubernetes%20storage/" class="md-nav__link">
+        09 存储
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10%20Kubernetes%20service%20discovery/" class="md-nav__link">
+        10 服务发现
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11%20Kubernetes%20pod%20properties/" class="md-nav__link">
+        11 Pod属性
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12%20Kubernetes%20high%20availability/" class="md-nav__link">
+        12 高可用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13%20Kubernetes%20helm/" class="md-nav__link">
+        13 Helm
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14%20Kubernetes%20harbor/" class="md-nav__link">
+        14 Harbor
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15%20Kubernetes%20kube%20problem%20set/" class="md-nav__link">
+        15 Kube问题集
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16%20Kubernetes%20other/" class="md-nav__link">
+        16 其他
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_16" type="checkbox" id="__nav_1_16" >
+      
+      <label class="md-nav__link" for="__nav_1_16">
+        16 Gitlab
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="16 Gitlab" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_16">
+          <span class="md-nav__icon md-icon"></span>
+          16 Gitlab
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../16%20Gitlab/Git%20use/" class="md-nav__link">
+        Gitlab使用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../16%20Gitlab/Gitlab%20backup%20script/" class="md-nav__link">
+        Gitlab备份脚本
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_17" type="checkbox" id="__nav_1_17" >
+      
+      <label class="md-nav__link" for="__nav_1_17">
+        17 Golang
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="17 Golang" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_17">
+          <span class="md-nav__icon md-icon"></span>
+          17 Golang
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/01%20fmt.Printf%20use/" class="md-nav__link">
+        01 fmt.Printf使用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/02%20pack/" class="md-nav__link">
+        02 打包
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../17%20Golang/03%20Gorang%20function/" class="md-nav__link">
+        03 函数
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_18" type="checkbox" id="__nav_1_18" >
+      
+      <label class="md-nav__link" for="__nav_1_18">
+        99 Other
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="99 Other" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_18">
+          <span class="md-nav__icon md-icon"></span>
+          99 Other
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../99%20Other/Invalid%20Linux%20Ctrl%20C/" class="md-nav__link">
+        Linux Ctrl C无效
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Japanese
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Japanese" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Japanese
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/01%20Fundamentals%20of%20pronunciation/" class="md-nav__link">
+        01 发音基础
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/02%20Let%27s%20go%20and%20buy%20some%20cakes/" class="md-nav__link">
+        02 我们去买蛋糕吧
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/03%20like%20like%20like/" class="md-nav__link">
+        03 喜欢喜欢好喜欢
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/04%20buy%20buy%20buy/" class="md-nav__link">
+        04 买买买
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/05%20family/" class="md-nav__link">
+        05 家人
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/06%20what%20time%20is%20the%20Shinkansen/" class="md-nav__link">
+        06 几点的新干线
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/07%20want%20to%20want%20good%20want/" class="md-nav__link">
+        07 想要想要好想要
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/08%20want%20to%20eat/" class="md-nav__link">
+        08 想吃想吃好想吃
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/09%20my%20dream/" class="md-nav__link">
+        09 我的梦想
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/10%20It%27s%2010%20days%2C%20five%20nights%20and%20nine%20nights/" class="md-nav__link">
+        10 朝五晚九开始啦
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Japanese/11%20my/" class="md-nav__link">
+        11 我
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="_1">机制说明<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p><em>围绕APIServer来设计，使用了认证（Authentication）、鉴权（Authorization）、准入控制（AdmissionControl）三部来保证APIServer的安全</em></p>
+<p><img alt="image-20200609215752076" src="http://carson-mweb.oss-cn-beijing.aliyuncs.com/2020/06/14/image20200609215752076.png?image/auto-orient,1/quality,q_90" /></p>
+<h1 id="_2">认证<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<ul>
+<li>Http Token认证：生成一个复杂的字符串，每一个Token对应一个用户名存储在Api Server能访问的文件中。当客户端发起API调用请求时，需要在HTTP Hander中放入Token</li>
+<li>Http Base认证：用户名+密码，使用BASE64编码将字符串放在HTTP Request中的Heather Authorization域里发送到服务端，服务端收到后进行解码，获取用户名和密码</li>
+<li>最严格的Https证书认证：基于CA根证书签名的客户端身份认证方式</li>
+</ul>
+<p><strong>HTTPS证书认证</strong></p>
+<p><img alt="image-20200609215844364" src="http://carson-mweb.oss-cn-beijing.aliyuncs.com/2020/06/14/image20200609215844364.png?image/auto-orient,1/quality,q_90" /></p>
+<p><strong>需要认证的节点</strong></p>
+<p><img alt="image-20200609220125572" src="http://carson-mweb.oss-cn-beijing.aliyuncs.com/2020/06/14/image20200609220125572.png?image/auto-orient,1/quality,q_90" /></p>
+<p><strong>两种类型</strong></p>
+<ul>
+<li>Kubernetes组件对API Server的访问：kubectl、Controller Manager、Scheduler、kubelet、kube-proxy</li>
+<li>Kubernetes管理的Pod对容器的访问：Pod（dashboard也是以Pod形式运行）</li>
+</ul>
+<p><strong>安全性说明</strong></p>
+<ul>
+<li>Controller Manager、Scheduler与API Server在同一台机器，所以直接使用API Server的非安全端口访问，<code>--insecure-bind-address=127.0.0.1</code></li>
+<li>Kubectl、Kubelet、kube-proxy访问API Server就都需要证书进行HTTPS双向认证</li>
+</ul>
+<p><strong>证书颁发</strong></p>
+<ul>
+<li>手动签发：通过k8s集群的根ca进行签发HTTPS证书</li>
+<li>自动签发：kubelet首次访问API Server时，使用token做认证，通过后Controller Manager会为kubelet生成一个证书，以后的访问都是用证书做认证了。</li>
+</ul>
+<p><strong>kubeconfig</strong></p>
+<p>kubeconfig 文件包含集群参数（CA证书、API Server地址），客户端参数（上面生成的证书和私钥），集群context信息（集群名称、用户名）。Kubenetes组件通过启动时指定不同的kubeconfig文件可以切换到不同的集群。</p>
+<p><strong>ServiceAccount</strong></p>
+<p>Pod中的容器访问API Server。因为Pod的创建、销毁时动态的，所以要为他手动生成证书就不行了，kubernetes使用了Service Account解决了Pod访问API Server的认证问题。</p>
+<p><strong>Secret与SA的关系</strong></p>
+<p>Kubernetes设计了一种资源对象叫做Secret，分为两类一种是ServiceAccount的service-account-token，另一种是用于保存用户自定义保密信息的Opaque。ServiceAccount中用到包含三个部分：Token、ca.crt、namespace</p>
+<ul>
+<li>
+<p>token是使用API Server私钥签名的JWT。用于访问API Server时，Server端认证</p>
+</li>
+<li>
+<p>ca.crt，根证书。用于Client端验证API Server发送端证书</p>
+</li>
+<li>
+<p>namespace，表示这个service-account-token的作用域名空间</p>
+</li>
+</ul>
+<p><em>默认情况下，每个namespace都会有一个ServiceAccount，如果Pod在创建时没有指定ServiceAccount，就会使用Pod所属的namespace的ServiceAccount</em></p>
+<p><code>默认挂载目录：/run/secrets/kubernetes.io/serviceaccount/</code></p>
+<div class="highlight"><pre><span></span><code>kubectl get secret --all-namespaces
+kubectl describe secret default-token-5gm94 --namespace<span class="o">=</span>kube-system
+</code></pre></div>
+<p><img alt="image-20200609224859184" src="http://carson-mweb.oss-cn-beijing.aliyuncs.com/2020/06/14/image20200609224859184.png?image/auto-orient,1/quality,q_90" /></p>
+<h1 id="_3">鉴权<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
+<p><em>认证只是说明不同组件间是否可以通讯，而鉴权是确定请求方有哪些访问资源的权限。APIServer目前支持以下几种授权策略（通过APIServer的启动参数"--authorization-mode"设置）</em></p>
+<ul>
+<li>AlwaysDeny：表示拒绝所有的请求，一般用于测试</li>
+<li>AlwaysAllow：允许接收所有请求，如果集群不需要授权流程，则可以采用该策略</li>
+<li>ABAC（Attribute-Based Access Control）:基于属性的访问控制，表示使用用户配置的授权规则对用户请求进行匹配和控制</li>
+<li>Webhook：通过调用外部Rest服务对用户进行授权</li>
+<li>RBAC（Role-Based Access Control）：基于角色的访问控制，现行默认规则</li>
+</ul>
+<p><strong>RBAC授权模式</strong></p>
+<p><em>RBAC（Role-Based Access Control）基于角色的访问控制，在Kubernetes1.5中引入，现在称为默认标准。相对其他访问控制方式，拥有以下优势</em></p>
+<ul>
+<li>对集群中的资源和非资源均拥有完整的覆盖</li>
+<li>整个RBAC完全由几个API对象完成，同其他API对象一样，可以用kubectl或API进行操作</li>
+<li>
+<p>可以在运行时进行调整，无需重启API Server</p>
+</li>
+<li>
+<p>RBAC的API资源对象说明</p>
+</li>
+</ul>
+<p><em>RBAC引入4个心的顶级资源对象：role、clusterRole、clusterRoleBinding，四种对象类型均可以通过kubectl与API操作</em></p>
+<p><img alt="image-20200609230514028" src="http://carson-mweb.oss-cn-beijing.aliyuncs.com/2020/06/14/image20200609230514028.png?image/auto-orient,1/quality,q_90" /></p>
+<p><strong>注意⚠️：kubernetes并不会提供用户管理，那么user、group、serviceAccount指定的用户在kubernetes组件（kubectl、kube-proxy）或其他自定义的用户再向CA申请证书时，需要提供一个证书请求文件</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;CN&quot;</span><span class="p">:</span> <span class="nt">&quot;admin&quot;</span>
+  <span class="nt">&quot;host&quot;</span><span class="p">:</span> <span class="p">[],</span>
+ <span class="nt">&quot;key&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;algo&quot;</span><span class="p">:</span> <span class="s2">&quot;rsa&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">2048</span>
+  <span class="p">},</span>
+ <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&quot;C&quot;</span><span class="p">:</span> <span class="nt">&quot;CN&quot;</span>
+      <span class="nt">&quot;ST&quot;</span><span class="p">:</span> <span class="nt">&quot;HangZhou&quot;</span>
+      <span class="nt">&quot;L&quot;</span><span class="p">:</span> <span class="s2">&quot;XS&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;O&quot;</span><span class="p">:</span> <span class="s2">&quot;system:masters&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;OU&quot;</span><span class="p">:</span> <span class="s2">&quot;System&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>APIServer会把客户端证书的CN字段作为User，把name.0字段作为Group</li>
+<li>kubelet使用TLS Bootstaping认证时，APIServer可以使用Bootstrap Tokens或者Token authentication file验证 =token，无论哪一种，kubernetes都会为token绑定一个默认的User和Group</li>
+<li>Pod使用serviceAccount认证时，service-account-token中的JWT会保存User信息</li>
+</ul>
+<p>Role and ClusterRole</p>
+<p><em>在RBAC API中，Role表示一组规则权限，权限只会增加（累加权限），不存在一个资源已开始就有很多权限而通过RBAC对其进行减少的操作；Role可以定义在一个namespace中，如果想要夸namespace则可以创建ClusterRole</em></p>
+<div class="highlight"><pre><span></span><code><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Role</span>
+<span class="nt">apiVerion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1beta1</span>
+<span class="nt">metadata</span><span class="p">:</span>
+    <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pod-reader</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">apiGroups</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span> <span class="c1"># &quot;&quot; indicates the core api group 赋予API版本的哪个组</span>
+    <span class="nt">resources</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">]</span>
+    <span class="nt">verbs</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">,</span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p><em>ClusterRole具有Role相同的权限角色控制能力，不同的是ClusterRole是集群级别的，ClusterRole可以用于</em></p>
+<ul>
+<li>
+<p>集群级别的资源控制（例如Node访问权限）</p>
+</li>
+<li>
+<p>非资源型endpoint（例如/healthz访问）</p>
+</li>
+<li>
+<p>所有命名空间资源控制（例如pods）</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1beta1</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">secret-reader</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">apiGroups</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
+  <span class="nt">resources</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;secrets&quot;</span><span class="p p-Indicator">]</span>
+  <span class="nt">verbs</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">,</span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p><strong>RoleBinding and ClusterBinding</strong></p>
+<p><em>RoleBinding 可以将角色中定义的权限授予用户或用户组，RoleBinding包含一组权限列表（subjects），权限里表中包含有不同形式的待授予权限资源类型（user、groups、service accounts）；RoleBinding同样包含对被Bind的Role引用；RoleBinding适用于某个命名空间内授权，而ClusterRoleBinding适用于集群范围内的授权</em></p>
+<p><strong><em>将default命名空间的<code>pod-reader</code>用户授权与jane用户，此后jane用户在default命名空间中具有<code>pod-reader</code>的权限</em></strong></p>
+<div class="highlight"><pre><span></span><code><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">RoleBinding</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1beta1</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">read-pods</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="nt">subjects</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">User</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jane</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Role</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pod-reader</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+</code></pre></div>
+<p><em>RoleBinding同样可以引用ClusterRole对当前namespace内用户、用户组或ServiceAccount进行授权，这种操作允许集群管理员在整个集群内定义一些通用的ClusterRole，然后在不同的namespace中使用RoleBinding来引用*</em></p>
+<p><em>例如，以下RoleBinding引用了一个ClusterRole，这个ClusterRole具有整个集群内对secrets的访问权限；但是其授权用户dave只能访问development空间中的secrets（因为RoleBinding定义在development命名空间）</em></p>
+<div class="highlight"><pre><span></span><code><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">RoleBinding</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1beta1</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">read-secrets</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">development</span>
+<span class="nt">subjects</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">User</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dave</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">secret-reader</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+</code></pre></div>
+<p><em>使用ClusterRoleBinding可以对整个集群中所有命名空间资源权限进行授权；以下ClusterRoleBinding样例展示了授权manager组内所有用户在全部命名空间中对secrets进行访问</em></p>
+<div class="highlight"><pre><span></span><code><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1beta1</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">read-secrets-global</span>
+<span class="nt">subjects</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Group</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">manager</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">secret-reader</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+</code></pre></div>
+<p><strong>Resources</strong></p>
+<p><em>kubernetes集群内一些资源一般以其名称字符串来表示，这些字符串一般会在API的Url地址中出现；同时某些资源也会包含子资源，例如logs资源就属于pods的子资源，API中的url样例如下</em></p>
+<p><code>GET /api/v1/namespaces/{namespace}/pods/{name}/log</code></p>
+<p><em>如果要在RBAC授权模型中控制这些子资源的访问权限，可以通过/分隔符来实现，以下是一个定义pods资源logs访问权限的Role定义样例</em></p>
+<div class="highlight"><pre><span></span><code><span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Role</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1beta1</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pod-and-pod-logs-reader</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">apiGroups</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
+  <span class="nt">resources</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">,</span><span class="s">&quot;pods/log&quot;</span><span class="p p-Indicator">]</span>
+  <span class="nt">verbs</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<p><strong>to Subjects</strong></p>
+<p><em>RoleBinding和ClusterRoleBinding可以将Role绑定到Subjects；Subjects可以是groups、users或者是service accounts</em></p>
+<p><em>Subjects中Users使用字符串表示，它可以是一个普通的名字字符串，如"alice";也可以是email格式的邮箱地址，如"<a href="liangml0528@163.com">liangml0528@163.com</a>";甚至是一组字符串形式的数字ID。但是Users的前缀system：是系统保留的，集群管理员可以确保普通用户不会使用这个前缀的格式</em></p>
+<p><em>Groups书写格式与Users相同，都为一个字符串，并且没有特定的格式要求；同样system：前缀为系统保留</em></p>
+<p><strong><em>创建一个用户只能管理dev空间</em></strong></p>
+<div class="highlight"><pre><span></span><code><span class="o">{</span>
+  <span class="s2">&quot;CN&quot;</span>: <span class="s2">&quot;devuser&quot;</span>,
+  <span class="s2">&quot;hosts&quot;</span>: <span class="o">[]</span>,
+  <span class="s2">&quot;key&quot;</span>: <span class="o">{</span>
+    <span class="s2">&quot;algo&quot;</span>: <span class="s2">&quot;rsa&quot;</span>,
+    <span class="s2">&quot;size&quot;</span>: <span class="m">2048</span>
+  <span class="o">}</span>,
+  <span class="s2">&quot;name&quot;</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">&quot;C&quot;</span>: <span class="s2">&quot;CN&quot;</span>,
+      <span class="s2">&quot;ST&quot;</span>: <span class="s2">&quot;BeiJing&quot;</span>,
+      <span class="s2">&quot;L&quot;</span>: <span class="s2">&quot;Beijing&quot;</span>,
+      <span class="s2">&quot;O&quot;</span>: <span class="s2">&quot;k8s&quot;</span>,
+      <span class="s2">&quot;OU&quot;</span>: <span class="s2">&quot;System&quot;</span>
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+<span class="c1"># 下载证书生成工具</span>
+wget https://pkg.cfssl.org/R1.2/cfssl_linux-amd64
+mv cfssl_linux-amd64 /usr/local/bin/cfssl
+
+wget https://https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
+mv cfssljson_linux-amd64 /usr/local/bin/cfssljson
+
+wget https://https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64
+mv cfssl-certinfo_linux-amd64 /usr/local/bin/cfssl-certinfo
+
+cfssl gencert -ca<span class="o">=</span>ca.crt -ca-key<span class="o">=</span>ca.key -profile<span class="o">=</span>kubernetes /root/devuser-csr.json <span class="p">|</span> cfssljson -bare devuser
+
+<span class="c1"># 设置集群参数</span>
+<span class="nb">export</span> <span class="nv">KUBE_APISERVER</span><span class="o">=</span><span class="s2">&quot;https://172.20.0.113:6443&quot;</span>
+kubectl config set-cluster kubernetes <span class="se">\</span>
+--certificate-authority<span class="o">=</span>/etc/kubernetes/ssl/ca.crt <span class="se">\</span>
+--embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+--server<span class="o">=</span><span class="k">$(</span>KUBE_APISERVER<span class="k">)</span> <span class="se">\</span>
+--kubeconfig<span class="o">=</span>devuser.kubeconfig
+
+<span class="c1"># 设置客户端认证参数</span>
+kubectl config set-credentials devuser <span class="se">\</span>
+--client-certificate<span class="o">=</span>/etc/kubernetes/ssl/devuser.pem <span class="se">\</span>
+--client-key<span class="o">=</span>/etc/kubernetes/ssl/devuser-key.pem <span class="se">\</span>
+--embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+--kubeconfig<span class="o">=</span>devuser.kubeconfig
+
+ <span class="c1"># 设置上下文参数</span>
+ kubectl config set-context kubernetes <span class="se">\</span>
+ --cluster<span class="o">=</span>kubernetes <span class="se">\</span>
+ --user<span class="o">=</span>devuser <span class="se">\</span>
+ --namespace<span class="o">=</span> dev <span class="se">\</span>
+ --kubeconfig<span class="o">=</span>devuser.kubeconfig
+
+ <span class="c1"># 设置默认上下文</span>
+ kubectl config use-context kubernetes --kubeconfig<span class="o">=</span>devuser.kubeconfig
+
+ cp -f ./devuser.kubeconfig /root.kube/config
+
+ kubectl create rolebinding devuser-admin-binding --clusterrole<span class="o">=</span>admin --user<span class="o">=</span>devuser --namespace<span class="o">=</span>dev
+</code></pre></div>
+<h1 id="_4">准入控制<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
+<p><em>准入控制是APIServer的插件集合，通过添加不同的插件，实现额外的准入控制规则，甚至基于APIServer的一些主要功能都需要通过Admission Controllers实现，比如ServiceAccount</em></p>
+<p><strong>针对不同版本的准入控制推荐列表：1.14推荐</strong></p>
+<div class="highlight"><pre><span></span><code>NamespaceLifecycle、LimitRanger、ServiceAccount、DefaultStorageClass、DefaultTolerationSeconds、MutatingAdmissionWebhook、ValidatingAdmssionWebhook、ResourceQupta
+</code></pre></div>
+<p><strong>列举几个插件的工呢个</strong></p>
+<ul>
+<li>NamespaceLifecycle：防止在不存在的namespace上创建对象，防止删除系统预置namespace，删除namespace时，连带删除它的所有资源对象。</li>
+<li>LimitRanger：确保请求的资源不会超过资源所在的Namespace和LimitRange的限制</li>
+<li>ServiceAccount：实现了自动化添加ServiceAccount</li>
+<li>ResourceQupta：确保请求的资源不会超过资源的ResourceQupta限制</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../07%20Kubernetes%20resource%20scheduler/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 07 资源调度器" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              07 资源调度器
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../09%20Kubernetes%20storage/" class="md-footer__link md-footer__link--next" aria-label="下一页: 09 存储" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              09 存储
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2013-2020 <a href="https://doc.carsonfan.com">Carson's Docs</a>, All Rights Reserved. <a href="http://www.beian.miit.gov.cn" target="_blank">京ICP备15063656号-3</a>
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.febc23d1.min.js"></script>
+      
+    
+  </body>
+</html>
